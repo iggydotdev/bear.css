@@ -1,0 +1,5 @@
+/* Color */
+.text-subtle  { color: var(--color-text-subtle); }
+.text-strong  { color: var(--color-text-strong); }
+.bg-surface   { background: var(--color-surface); }
+.bg-raised    { background: var(--color-surface-raised); }

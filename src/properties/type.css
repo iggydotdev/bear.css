@@ -1,0 +1,6 @@
+
+/* Type */
+.text-sm   { font-size: var(--text-size-sm); }
+.text-base { font-size: var(--text-size-base); }
+.text-lg   { font-size: var(--text-size-lg); }
+.text-xl   { font-size: var(--text-size-xl); }
