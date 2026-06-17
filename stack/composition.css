@@ -1,0 +1,38 @@
+/* compositions.css */
+
+/* Stack: vertical rhythm with consistent gap */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.stack-sm { gap: var(--space-sm); }
+.stack-lg { gap: var(--space-lg); }
+
+/* Cluster: horizontal grouping that wraps */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/* Sidebar: classic holy grail 2-col */
+.sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.sidebar > :first-child { flex-basis: 20rem; flex-grow: 1; }
+.sidebar > :last-child  { flex-basis: 0; flex-grow: 999; min-inline-size: 50%; }
+
+/* Center: dead center */
+.center-xy { display: grid; place-items: center; }
+
+/* Cover: fill viewport, center child */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100dvh;
+}
+.cover > * { margin-block: auto; }
