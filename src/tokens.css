@@ -1,18 +1,24 @@
 /* tokens.css — the design language */
+/* These are the override points. Change tokens, not utilities. */
 :root {
+
+  /* === FONT FAMILY TOKENS === */
+  --font-sans:  system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono:  ui-monospace, monospace;
+
   /* === SPACE TOKENS === */
-  --space-none:  var(--primitive-0);
-  --space-xs:    var(--primitive-1);   /* 4px  — tight nudges */
-  --space-sm:    var(--primitive-2);   /* 8px  — inline gaps */
-  --space-md:    var(--primitive-4);   /* 16px — base unit */
-  --space-lg:    var(--primitive-6);   /* 24px — section breathing */
-  --space-xl:    var(--primitive-8);   /* 32px — layout gaps */
-  --space-2xl:   var(--primitive-12);  /* 48px — section breaks */
-  --space-3xl:   var(--primitive-16);  /* 64px — hero regions */
+  --space-none: var(--primitive-0);
+  --space-xs:   var(--primitive-1);   /* 4px  — tight nudges       */
+  --space-sm:   var(--primitive-2);   /* 8px  — inline gaps        */
+  --space-md:   var(--primitive-4);   /* 16px — base unit          */
+  --space-lg:   var(--primitive-6);   /* 24px — section breathing  */
+  --space-xl:   var(--primitive-8);   /* 32px — layout gaps        */
+  --space-2xl:  var(--primitive-12);  /* 48px — section breaks     */
+  --space-3xl:  var(--primitive-16);  /* 64px — hero regions       */
 
   /* === TYPE TOKENS === */
-  /* Note: type tokens pull from the SAME scale as space. 
-     --space-md === --text-base-size. That's intentional. */
+  /* Same scale as space. --space-md === --text-size-base. Intentional. */
   --text-size-xs:   var(--primitive-text-xs);
   --text-size-sm:   var(--primitive-text-sm);
   --text-size-base: var(--primitive-text-base);
@@ -22,31 +28,39 @@
   --text-size-2xl:  var(--primitive-text-2xl);
   --text-size-3xl:  var(--primitive-text-3xl);
 
-  --text-leading-tight:  1.2;
-  --text-leading-base:   1.5;
-  --text-leading-loose:  1.8;
+  --text-leading-tight: 1.2;
+  --text-leading-base:  1.5;
+  --text-leading-loose: 1.8;
+
   --text-tracking-tight: -0.02em;
-  --text-tracking-base:  0;
-  --text-tracking-wide:  0.05em;
+  --text-tracking-base:   0;
+  --text-tracking-wide:   0.05em;
 
   /* === COLOR TOKENS — SEMANTIC === */
-  --color-surface:       var(--primitive-gray-0);
+  /* Override these. Never use primitives directly in your CSS. */
+  --color-text:           var(--primitive-gray-800);
+  --color-text-subtle:    var(--primitive-gray-500);
+  --color-text-strong:    var(--primitive-gray-900);
+  --color-surface:        var(--primitive-gray-0);
   --color-surface-raised: var(--primitive-gray-50);
   --color-surface-sunken: var(--primitive-gray-100);
-  --color-border:        var(--primitive-gray-200);
-  --color-text-subtle:   var(--primitive-gray-500);
-  --color-text:          var(--primitive-gray-800);
-  --color-text-strong:   var(--primitive-gray-900);
-  --color-accent:        var(--primitive-blue-500);
-  --color-accent-hover:  var(--primitive-blue-600);
-  --color-danger:        var(--primitive-red-500);
-  --color-success:       var(--primitive-green-500);
+  --color-border:         var(--primitive-gray-200);
+  --color-accent:         var(--primitive-blue-500);
+  --color-accent-hover:   var(--primitive-blue-600);
+  --color-danger:         var(--primitive-red-500);
+  --color-success:        var(--primitive-green-500);
+}
 
-  /* === BREAKPOINT TOKENS === */
-  /* Used in @media — not as CSS vars (can't be), but as named constants
-     in your source config. Documented here for reference. */
-  /* --bp-s:  30rem  / 480px  */
-  /* --bp-m:  48rem  / 768px  */
-  /* --bp-l:  64rem  / 1024px */
-  /* --bp-xl: 80rem  / 1280px */
+/* === DARK MODE === */
+/* Override tokens only — utilities update automatically */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text:           #f0f0f0;
+    --color-text-subtle:    #9b9b9b;
+    --color-text-strong:    #ffffff;
+    --color-surface:        #0f0f0f;
+    --color-surface-raised: #1a1a1a;
+    --color-surface-sunken: #242424;
+    --color-border:         #2e2e2e;
+  }
 }
