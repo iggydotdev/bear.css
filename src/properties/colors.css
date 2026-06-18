@@ -1,5 +1,34 @@
-/* Color */
+/* color.css — [property]-[value] */
+/* All values reference tokens. Never hardcode colors here. */
+
+/* --- Text color --- */
+.text-default { color: var(--color-text); }
 .text-subtle  { color: var(--color-text-subtle); }
 .text-strong  { color: var(--color-text-strong); }
-.bg-surface   { background: var(--color-surface); }
-.bg-raised    { background: var(--color-surface-raised); }
+.text-accent  { color: var(--color-accent); }
+.text-danger  { color: var(--color-danger); }
+.text-success { color: var(--color-success); }
+.text-inherit { color: inherit; }
+
+/* --- Background --- */
+.bg-surface      { background-color: var(--color-surface); }
+.bg-raised       { background-color: var(--color-surface-raised); }
+.bg-sunken       { background-color: var(--color-surface-sunken); }
+.bg-accent       { background-color: var(--color-accent); }
+.bg-danger       { background-color: var(--color-danger); }
+.bg-success      { background-color: var(--color-success); }
+.bg-transparent  { background-color: transparent; }
+
+/* --- Border color --- */
+/* Pair with .border from border.css: <div class="border border-accent"> */
+.border-default { border-color: var(--color-border); }
+.border-accent  { border-color: var(--color-accent); }
+.border-danger  { border-color: var(--color-danger); }
+.border-success { border-color: var(--color-success); }
+
+/* --- Opacity --- */
+.opacity-0   { opacity: 0; }
+.opacity-25  { opacity: 0.25; }
+.opacity-50  { opacity: 0.5; }
+.opacity-75  { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
