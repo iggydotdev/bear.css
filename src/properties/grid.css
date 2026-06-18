@@ -1,0 +1,85 @@
+/* grid.css — [property]-[value] */
+/* CSS Grid container and item utilities */
+/* Column counts use the 12-column config from primitives */
+
+/* --- Template columns --- */
+.grid-cols-1  { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4  { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-6  { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.grid-cols-none { grid-template-columns: none; }
+
+/* Auto-fit / auto-fill — responsive grids without breakpoints */
+/* Override --grid-min with a custom property for control */
+.grid-auto-fit {
+  --grid-min: 15rem;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+}
+.grid-auto-fill {
+  --grid-min: 15rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min), 1fr));
+}
+
+/* --- Template rows --- */
+.grid-rows-1    { grid-template-rows: repeat(1, minmax(0, 1fr)); }
+.grid-rows-2    { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.grid-rows-3    { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+.grid-rows-none { grid-template-rows: none; }
+
+/* --- Grid flow --- */
+.grid-flow-row       { grid-auto-flow: row; }
+.grid-flow-col       { grid-auto-flow: column; }
+.grid-flow-row-dense { grid-auto-flow: row dense; }
+.grid-flow-col-dense { grid-auto-flow: column dense; }
+
+/* --- Column span --- */
+.col-auto     { grid-column: auto; }
+.col-span-1   { grid-column: span 1 / span 1; }
+.col-span-2   { grid-column: span 2 / span 2; }
+.col-span-3   { grid-column: span 3 / span 3; }
+.col-span-4   { grid-column: span 4 / span 4; }
+.col-span-6   { grid-column: span 6 / span 6; }
+.col-span-8   { grid-column: span 8 / span 8; }
+.col-span-12  { grid-column: span 12 / span 12; }
+.col-span-full{ grid-column: 1 / -1; }
+
+/* --- Column start / end --- */
+.col-start-1  { grid-column-start: 1; }
+.col-start-2  { grid-column-start: 2; }
+.col-start-3  { grid-column-start: 3; }
+.col-start-4  { grid-column-start: 4; }
+.col-start-auto { grid-column-start: auto; }
+
+.col-end-auto { grid-column-end: auto; }
+.col-end-last { grid-column-end: -1; }
+
+/* --- Row span --- */
+.row-auto      { grid-row: auto; }
+.row-span-1    { grid-row: span 1 / span 1; }
+.row-span-2    { grid-row: span 2 / span 2; }
+.row-span-3    { grid-row: span 3 / span 3; }
+.row-span-full { grid-row: 1 / -1; }
+
+/* --- Row start --- */
+.row-start-1    { grid-row-start: 1; }
+.row-start-2    { grid-row-start: 2; }
+.row-start-3    { grid-row-start: 3; }
+.row-start-auto { grid-row-start: auto; }
+
+/* --- Place items (grid-specific alignment) --- */
+.place-items-start   { place-items: start; }
+.place-items-end     { place-items: end; }
+.place-items-center  { place-items: center; }
+.place-items-stretch { place-items: stretch; }
+
+/* --- Place self (individual cell alignment) --- */
+.place-self-start   { place-self: start; }
+.place-self-end     { place-self: end; }
+.place-self-center  { place-self: center; }
+.place-self-stretch { place-self: stretch; }
+
+/* --- Subgrid --- */
+.subgrid-cols { grid-template-columns: subgrid; }
+.subgrid-rows { grid-template-rows: subgrid; }

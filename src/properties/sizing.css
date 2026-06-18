@@ -1,0 +1,83 @@
+/* sizing.css — [property]-[value] */
+/* Width, height, min/max constraints */
+/* Uses logical properties: inline-size (width), block-size (height) */
+
+/* --- Width (inline-size) --- */
+.w-auto { inline-size: auto; }
+.w-full { inline-size: 100%; }
+.w-screen { inline-size: 100vw; }
+.w-min  { inline-size: min-content; }
+.w-max  { inline-size: max-content; }
+.w-fit  { inline-size: fit-content; }
+
+/* Token-based widths */
+.w-xs  { inline-size: var(--space-xs); }
+.w-sm  { inline-size: var(--space-sm); }
+.w-md  { inline-size: var(--space-md); }
+.w-lg  { inline-size: var(--space-lg); }
+.w-xl  { inline-size: var(--space-xl); }
+.w-2xl { inline-size: var(--space-2xl); }
+.w-3xl { inline-size: var(--space-3xl); }
+
+/* --- Height (block-size) --- */
+.h-auto   { block-size: auto; }
+.h-full   { block-size: 100%; }
+.h-screen { block-size: 100dvh; }
+.h-min    { block-size: min-content; }
+.h-max    { block-size: max-content; }
+.h-fit    { block-size: fit-content; }
+
+/* Token-based heights */
+.h-xs  { block-size: var(--space-xs); }
+.h-sm  { block-size: var(--space-sm); }
+.h-md  { block-size: var(--space-md); }
+.h-lg  { block-size: var(--space-lg); }
+.h-xl  { block-size: var(--space-xl); }
+.h-2xl { block-size: var(--space-2xl); }
+.h-3xl { block-size: var(--space-3xl); }
+
+/* --- Min width (min-inline-size) --- */
+.min-w-0    { min-inline-size: 0; }
+.min-w-full { min-inline-size: 100%; }
+.min-w-min  { min-inline-size: min-content; }
+.min-w-max  { min-inline-size: max-content; }
+.min-w-fit  { min-inline-size: fit-content; }
+
+/* --- Max width (max-inline-size) --- */
+.max-w-none { max-inline-size: none; }
+.max-w-full { max-inline-size: 100%; }
+.max-w-min  { max-inline-size: min-content; }
+.max-w-max  { max-inline-size: max-content; }
+.max-w-fit  { max-inline-size: fit-content; }
+
+/* Prose/container max-widths — named for purpose, not pixels */
+.max-w-prose { max-inline-size: 65ch; }
+.max-w-narrow{ max-inline-size: 45ch; }
+.max-w-wide  { max-inline-size: 85ch; }
+
+/* Breakpoint-aligned container widths */
+.max-w-s  { max-inline-size: 30rem; }  /* 480px */
+.max-w-m  { max-inline-size: 48rem; }  /* 768px */
+.max-w-l  { max-inline-size: 64rem; }  /* 1024px */
+.max-w-xl { max-inline-size: 80rem; }  /* 1280px */
+
+/* --- Min height (min-block-size) --- */
+.min-h-0      { min-block-size: 0; }
+.min-h-full   { min-block-size: 100%; }
+.min-h-screen { min-block-size: 100dvh; }
+.min-h-min    { min-block-size: min-content; }
+.min-h-fit    { min-block-size: fit-content; }
+
+/* --- Max height (max-block-size) --- */
+.max-h-none   { max-block-size: none; }
+.max-h-full   { max-block-size: 100%; }
+.max-h-screen { max-block-size: 100dvh; }
+.max-h-min    { max-block-size: min-content; }
+.max-h-fit    { max-block-size: fit-content; }
+
+/* --- Aspect ratio --- */
+.aspect-auto    { aspect-ratio: auto; }
+.aspect-square  { aspect-ratio: 1; }
+.aspect-video   { aspect-ratio: 16 / 9; }
+.aspect-photo   { aspect-ratio: 4 / 3; }
+.aspect-wide    { aspect-ratio: 21 / 9; }

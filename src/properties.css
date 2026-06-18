@@ -1,3 +1,8 @@
 @import "./properties/space.css";
 @import "./properties/type.css";
 @import "./properties/colors.css";
+@import "./properties/layout.css";
+@import "./properties/sizing.css";
+@import "./properties/border.css";
+@import "./properties/flex.css";
+@import "./properties/grid.css";
