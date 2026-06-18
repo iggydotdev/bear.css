@@ -1,0 +1,112 @@
+/* responsive.css — curated breakpoint overrides */
+/* Only utilities that change BEHAVIOR at breakpoints live here. */
+/* Everything else scales automatically via fluid tokens. */
+/* Naming: .utility\@bp — "this utility AT this breakpoint" */
+
+/*
+  Breakpoints (mobile-first, min-width):
+  @s  — 30rem  (480px)
+  @m  — 48rem  (768px)
+  @l  — 64rem  (1024px)
+  @xl — 80rem  (1280px)
+*/
+
+/* ========================================
+   @s — 30rem / 480px
+   ======================================== */
+@media (min-width: 30rem) {
+
+  /* Display */
+  .hidden\@s { display: none; }
+  .block\@s  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@s { flex-direction: row; }
+  .flex-col\@s { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-1\@s { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2\@s { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-lg\@s  { font-size: var(--text-size-lg); }
+  .text-xl\@s  { font-size: var(--text-size-xl); }
+}
+
+/* ========================================
+   @m — 48rem / 768px
+   ======================================== */
+@media (min-width: 48rem) {
+
+  /* Display */
+  .hidden\@m { display: none; }
+  .block\@m  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@m { flex-direction: row; }
+  .flex-col\@m { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-1\@m { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2\@m { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3\@m { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4\@m { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-lg\@m  { font-size: var(--text-size-lg); }
+  .text-xl\@m  { font-size: var(--text-size-xl); }
+  .text-2xl\@m { font-size: var(--text-size-2xl); }
+}
+
+/* ========================================
+   @l — 64rem / 1024px
+   ======================================== */
+@media (min-width: 64rem) {
+
+  /* Display */
+  .hidden\@l { display: none; }
+  .block\@l  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@l { flex-direction: row; }
+  .flex-col\@l { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-1\@l { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2\@l { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3\@l { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4\@l { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid-cols-6\@l { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-lg\@l  { font-size: var(--text-size-lg); }
+  .text-xl\@l  { font-size: var(--text-size-xl); }
+  .text-2xl\@l { font-size: var(--text-size-2xl); }
+  .text-3xl\@l { font-size: var(--text-size-3xl); }
+}
+
+/* ========================================
+   @xl — 80rem / 1280px
+   ======================================== */
+@media (min-width: 80rem) {
+
+  /* Display */
+  .hidden\@xl { display: none; }
+  .block\@xl  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@xl { flex-direction: row; }
+  .flex-col\@xl { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-2\@xl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3\@xl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4\@xl { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid-cols-6\@xl { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .grid-cols-12\@xl{ grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-xl\@xl  { font-size: var(--text-size-xl); }
+  .text-2xl\@xl { font-size: var(--text-size-2xl); }
+  .text-3xl\@xl { font-size: var(--text-size-3xl); }
+}

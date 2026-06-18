@@ -1,0 +1,82 @@
+/* layout.css — [property]-[value] */
+/* Display, position, visibility, and stacking */
+
+/* --- Display --- */
+.block       { display: block; }
+.inline      { display: inline; }
+.inline-block{ display: inline-block; }
+.flex        { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid        { display: grid; }
+.inline-grid { display: inline-grid; }
+.contents    { display: contents; }
+.hidden      { display: none; }
+
+/* --- Position --- */
+.static   { position: static; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed    { position: fixed; }
+.sticky   { position: sticky; }
+
+/* --- Inset (logical) --- */
+/* Full inset */
+.inset-none { inset: 0; }
+.inset-auto { inset: auto; }
+
+/* Block (vertical) */
+.inset-block-none  { inset-block: 0; }
+.inset-block-auto  { inset-block: auto; }
+.inset-block-start-none { inset-block-start: 0; }
+.inset-block-start-auto { inset-block-start: auto; }
+.inset-block-end-none   { inset-block-end: 0; }
+.inset-block-end-auto   { inset-block-end: auto; }
+
+/* Inline (horizontal) */
+.inset-inline-none  { inset-inline: 0; }
+.inset-inline-auto  { inset-inline: auto; }
+.inset-inline-start-none { inset-inline-start: 0; }
+.inset-inline-start-auto { inset-inline-start: auto; }
+.inset-inline-end-none   { inset-inline-end: 0; }
+.inset-inline-end-auto   { inset-inline-end: auto; }
+
+/* --- Visibility --- */
+.visible   { visibility: visible; }
+.invisible { visibility: hidden; }
+
+/* --- Isolation --- */
+.isolate      { isolation: isolate; }
+.isolate-auto { isolation: auto; }
+
+/* --- Float (logical) --- */
+.float-start { float: inline-start; }
+.float-end   { float: inline-end; }
+.float-none  { float: none; }
+.clear-both  { clear: both; }
+
+/* --- Object fit --- */
+.object-contain { object-fit: contain; }
+.object-cover   { object-fit: cover; }
+.object-fill    { object-fit: fill; }
+.object-none    { object-fit: none; }
+
+/* --- Overflow --- */
+.overflow-auto    { overflow: auto; }
+.overflow-hidden  { overflow: hidden; }
+.overflow-clip    { overflow: clip; }
+.overflow-visible { overflow: visible; }
+.overflow-scroll  { overflow: scroll; }
+
+.overflow-x-auto   { overflow-x: auto; }
+.overflow-x-hidden { overflow-x: hidden; }
+.overflow-x-clip   { overflow-x: clip; }
+.overflow-x-scroll { overflow-x: scroll; }
+
+.overflow-y-auto   { overflow-y: auto; }
+.overflow-y-hidden { overflow-y: hidden; }
+.overflow-y-clip   { overflow-y: clip; }
+.overflow-y-scroll { overflow-y: scroll; }
+
+/* --- Pointer events --- */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }

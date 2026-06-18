@@ -12,6 +12,10 @@ function bundle(filePath) {
 }
  
 const output = bundle('./src/bear.css')
+if (!fs.existsSync('./dist')) {
+  fs.mkdirSync('./dist')
+}
 fs.writeFileSync('./dist/bear.css', output)
 console.log('✓ built → dist/bear.css')
+
  

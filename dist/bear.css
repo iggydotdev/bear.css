@@ -1,0 +1,1020 @@
+@layer reset, primitives, tokens, properties, compositions;
+
+@layer reset { /* reset.css — sane defaults, consistent baseline */
+/* Opinionated where it helps. Minimal where it doesn't. */
+
+/* --- Box model --- */
+/* Everything uses border-box. No exceptions. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* --- Margins and padding --- */
+/* Browsers have wildly different defaults. Start from zero. */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Root --- */
+/* Respect the user's browser font size setting */
+:root {
+  font-size: 100%;
+}
+
+/* --- Body --- */
+/* Wire directly into tokens so overriding a token updates everything */
+body {
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  font-size: var(--text-size-base);
+  line-height: var(--text-leading-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Headings --- */
+/* Reset size and weight — apply with utilities: .text-2xl.font-bold */
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: var(--text-leading-tight);
+}
+
+/* --- Typography --- */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* --- Links --- */
+/* Unstyled by default. Style with utilities or your own CSS. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Lists --- */
+/* Only reset when explicitly opting out with role or class */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* --- Media --- */
+/* Block-level, responsive by default */
+img, picture, video, canvas, svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+/* --- Forms --- */
+/* Inherit the document font — browsers don't do this by default */
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Remove the default button look */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Textarea — no horizontal resize by default */
+textarea {
+  resize: vertical;
+}
+
+/* --- Tables --- */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* --- Reduced motion --- */
+/* Respect the user's OS preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+} }
+@layer primitives { /*
+{
+  "scale": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32],
+  "base-unit": 4,
+  "type-scale-ratio": 1.25,
+  "type-base": 16,
+  "columns": 12,
+  "breakpoints": { "s": 480, "m": 768, "l": 1024, "xl": 1280 }
+}
+*/
+
+/* primitives.css — never used directly in HTML */
+:root {
+  /* Numeric scale — the base grid unit is 4px = 0.25rem */
+  --primitive-0:  0;
+  --primitive-1:  0.25rem;   /* 4px  */
+  --primitive-2:  0.5rem;    /* 8px  */
+  --primitive-3:  0.75rem;   /* 12px */
+  --primitive-4:  1rem;      /* 16px */
+  --primitive-6:  1.5rem;    /* 24px */
+  --primitive-8:  2rem;      /* 32px */
+  --primitive-12: 3rem;      /* 48px */
+  --primitive-16: 4rem;      /* 64px */
+  --primitive-24: 6rem;      /* 96px */
+  --primitive-32: 8rem;      /* 128px */
+
+  /* Type scale — modular, ratio 1.25 from 1rem base */
+  --primitive-text-xs:   0.64rem;
+  --primitive-text-sm:   0.8rem;
+  --primitive-text-base: 1rem;
+  --primitive-text-md:   1.25rem;
+  --primitive-text-lg:   1.563rem;
+  --primitive-text-xl:   1.953rem;
+  --primitive-text-2xl:  2.441rem;
+  --primitive-text-3xl:  3.052rem;
+
+  /* Raw colors — no semantics yet */
+  --primitive-gray-0:    #ffffff;
+  --primitive-gray-50:   #f8f8f8;
+  --primitive-gray-100:  #f0f0f0;
+  --primitive-gray-200:  #e0e0e0;
+  --primitive-gray-500:  #6b6b6b;
+  --primitive-gray-800:  #1a1a1a;
+  --primitive-gray-900:  #0f0f0f;
+  --primitive-blue-500:  #3d5afe;
+  --primitive-blue-600:  #3751e0;
+  --primitive-red-500:   #f44336;
+  --primitive-green-500: #4caf50;
+}
+ }
+@layer tokens { /* tokens.css — the design language */
+/* These are the override points. Change tokens, not utilities. */
+:root {
+
+  /* === FONT FAMILY TOKENS === */
+  --font-sans:  system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono:  ui-monospace, monospace;
+
+  /* === SPACE TOKENS === */
+  /* xs/sm stay fixed — sub-8px nudges shouldn't scale */
+  /* md+ use clamp() to scale gently with viewport    */
+  --space-none: 0;
+  --space-xs:   var(--primitive-1);                         /* 4px  — fixed */
+  --space-sm:   var(--primitive-2);                         /* 8px  — fixed */
+  --space-md:   clamp(0.875rem, 0.75rem + 0.25vw, 1rem);   /* 14–16px */
+  --space-lg:   clamp(1.25rem,  1rem + 0.5vw, 1.5rem);     /* 20–24px */
+  --space-xl:   clamp(1.75rem,  1.5rem + 0.5vw, 2rem);     /* 28–32px */
+  --space-2xl:  clamp(2.5rem,   2rem + 1vw, 3rem);          /* 40–48px */
+  --space-3xl:  clamp(3.5rem,   3rem + 1vw, 4rem);          /* 56–64px */
+
+  /* === TYPE TOKENS === */
+  /* Same scale as space. xs/sm/base stay fixed, md+ scale with viewport. */
+  --text-size-xs:   var(--primitive-text-xs);                             /* fixed */
+  --text-size-sm:   var(--primitive-text-sm);                             /* fixed */
+  --text-size-base: var(--primitive-text-base);                           /* fixed 1rem */
+  --text-size-md:   clamp(1.125rem, 1rem + 0.25vw, 1.25rem);             /* 18–20px */
+  --text-size-lg:   clamp(1.35rem,  1.2rem + 0.35vw, 1.563rem);          /* ~22–25px */
+  --text-size-xl:   clamp(1.6rem,   1.4rem + 0.5vw, 1.953rem);           /* ~26–31px */
+  --text-size-2xl:  clamp(2rem,     1.75rem + 0.75vw, 2.441rem);         /* ~32–39px */
+  --text-size-3xl:  clamp(2.5rem,   2rem + 1vw, 3.052rem);              /* ~40–49px */
+
+  --text-leading-tight: 1.2;
+  --text-leading-base:  1.5;
+  --text-leading-loose: 1.8;
+
+  --text-tracking-tight: -0.02em;
+  --text-tracking-base:   0;
+  --text-tracking-wide:   0.05em;
+
+  /* === COLOR TOKENS — SEMANTIC === */
+  /* Override these. Never use primitives directly in your CSS. */
+  --color-text:           var(--primitive-gray-800);
+  --color-text-subtle:    var(--primitive-gray-500);
+  --color-text-strong:    var(--primitive-gray-900);
+  --color-surface:        var(--primitive-gray-0);
+  --color-surface-raised: var(--primitive-gray-50);
+  --color-surface-sunken: var(--primitive-gray-100);
+  --color-border:         var(--primitive-gray-200);
+  --color-accent:         var(--primitive-blue-500);
+  --color-accent-hover:   var(--primitive-blue-600);
+  --color-danger:         var(--primitive-red-500);
+  --color-success:        var(--primitive-green-500);
+}
+
+/* === DARK MODE === */
+/* Override tokens only — utilities update automatically */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text:           #f0f0f0;
+    --color-text-subtle:    #9b9b9b;
+    --color-text-strong:    #ffffff;
+    --color-surface:        #0f0f0f;
+    --color-surface-raised: #1a1a1a;
+    --color-surface-sunken: #242424;
+    --color-border:         #2e2e2e;
+  }
+} }
+@layer properties { /* space.css — [property]-[value] */
+/* Uses logical properties throughout (block = vertical, inline = horizontal) */
+
+/* --- Margin --- */
+.m-none { margin: var(--space-none); }
+.m-xs   { margin: var(--space-xs); }
+.m-sm   { margin: var(--space-sm); }
+.m-md   { margin: var(--space-md); }
+.m-lg   { margin: var(--space-lg); }
+.m-xl   { margin: var(--space-xl); }
+.m-2xl  { margin: var(--space-2xl); }
+.m-auto { margin: auto; }
+
+/* block (vertical) */
+.mt-none { margin-block-start: var(--space-none); }
+.mt-xs   { margin-block-start: var(--space-xs); }
+.mt-sm   { margin-block-start: var(--space-sm); }
+.mt-md   { margin-block-start: var(--space-md); }
+.mt-lg   { margin-block-start: var(--space-lg); }
+.mt-xl   { margin-block-start: var(--space-xl); }
+.mt-2xl  { margin-block-start: var(--space-2xl); }
+.mt-auto { margin-block-start: auto; }
+
+.mb-none { margin-block-end: var(--space-none); }
+.mb-xs   { margin-block-end: var(--space-xs); }
+.mb-sm   { margin-block-end: var(--space-sm); }
+.mb-md   { margin-block-end: var(--space-md); }
+.mb-lg   { margin-block-end: var(--space-lg); }
+.mb-xl   { margin-block-end: var(--space-xl); }
+.mb-2xl  { margin-block-end: var(--space-2xl); }
+.mb-auto { margin-block-end: auto; }
+
+.my-none { margin-block: var(--space-none); }
+.my-xs   { margin-block: var(--space-xs); }
+.my-sm   { margin-block: var(--space-sm); }
+.my-md   { margin-block: var(--space-md); }
+.my-lg   { margin-block: var(--space-lg); }
+.my-xl   { margin-block: var(--space-xl); }
+.my-2xl  { margin-block: var(--space-2xl); }
+.my-auto { margin-block: auto; }
+
+/* inline (horizontal) */
+.mx-none { margin-inline: var(--space-none); }
+.mx-xs   { margin-inline: var(--space-xs); }
+.mx-sm   { margin-inline: var(--space-sm); }
+.mx-md   { margin-inline: var(--space-md); }
+.mx-lg   { margin-inline: var(--space-lg); }
+.mx-xl   { margin-inline: var(--space-xl); }
+.mx-2xl  { margin-inline: var(--space-2xl); }
+.mx-auto { margin-inline: auto; }  /* center a block */
+
+.ml-none { margin-inline-start: var(--space-none); }
+.ml-xs   { margin-inline-start: var(--space-xs); }
+.ml-sm   { margin-inline-start: var(--space-sm); }
+.ml-md   { margin-inline-start: var(--space-md); }
+.ml-lg   { margin-inline-start: var(--space-lg); }
+.ml-xl   { margin-inline-start: var(--space-xl); }
+.ml-2xl  { margin-inline-start: var(--space-2xl); }
+.ml-auto { margin-inline-start: auto; }
+
+.mr-none { margin-inline-end: var(--space-none); }
+.mr-xs   { margin-inline-end: var(--space-xs); }
+.mr-sm   { margin-inline-end: var(--space-sm); }
+.mr-md   { margin-inline-end: var(--space-md); }
+.mr-lg   { margin-inline-end: var(--space-lg); }
+.mr-xl   { margin-inline-end: var(--space-xl); }
+.mr-2xl  { margin-inline-end: var(--space-2xl); }
+.mr-auto { margin-inline-end: auto; }
+
+/* --- Padding --- */
+.p-none { padding: var(--space-none); }
+.p-xs   { padding: var(--space-xs); }
+.p-sm   { padding: var(--space-sm); }
+.p-md   { padding: var(--space-md); }
+.p-lg   { padding: var(--space-lg); }
+.p-xl   { padding: var(--space-xl); }
+.p-2xl  { padding: var(--space-2xl); }
+
+/* block (vertical) */
+.pt-none { padding-block-start: var(--space-none); }
+.pt-xs   { padding-block-start: var(--space-xs); }
+.pt-sm   { padding-block-start: var(--space-sm); }
+.pt-md   { padding-block-start: var(--space-md); }
+.pt-lg   { padding-block-start: var(--space-lg); }
+.pt-xl   { padding-block-start: var(--space-xl); }
+.pt-2xl  { padding-block-start: var(--space-2xl); }
+
+.pb-none { padding-block-end: var(--space-none); }
+.pb-xs   { padding-block-end: var(--space-xs); }
+.pb-sm   { padding-block-end: var(--space-sm); }
+.pb-md   { padding-block-end: var(--space-md); }
+.pb-lg   { padding-block-end: var(--space-lg); }
+.pb-xl   { padding-block-end: var(--space-xl); }
+.pb-2xl  { padding-block-end: var(--space-2xl); }
+
+.py-none { padding-block: var(--space-none); }
+.py-xs   { padding-block: var(--space-xs); }
+.py-sm   { padding-block: var(--space-sm); }
+.py-md   { padding-block: var(--space-md); }
+.py-lg   { padding-block: var(--space-lg); }
+.py-xl   { padding-block: var(--space-xl); }
+.py-2xl  { padding-block: var(--space-2xl); }
+
+/* inline (horizontal) */
+.px-none { padding-inline: var(--space-none); }
+.px-xs   { padding-inline: var(--space-xs); }
+.px-sm   { padding-inline: var(--space-sm); }
+.px-md   { padding-inline: var(--space-md); }
+.px-lg   { padding-inline: var(--space-lg); }
+.px-xl   { padding-inline: var(--space-xl); }
+.px-2xl  { padding-inline: var(--space-2xl); }
+
+.pl-none { padding-inline-start: var(--space-none); }
+.pl-xs   { padding-inline-start: var(--space-xs); }
+.pl-sm   { padding-inline-start: var(--space-sm); }
+.pl-md   { padding-inline-start: var(--space-md); }
+.pl-lg   { padding-inline-start: var(--space-lg); }
+.pl-xl   { padding-inline-start: var(--space-xl); }
+.pl-2xl  { padding-inline-start: var(--space-2xl); }
+
+.pr-none { padding-inline-end: var(--space-none); }
+.pr-xs   { padding-inline-end: var(--space-xs); }
+.pr-sm   { padding-inline-end: var(--space-sm); }
+.pr-md   { padding-inline-end: var(--space-md); }
+.pr-lg   { padding-inline-end: var(--space-lg); }
+.pr-xl   { padding-inline-end: var(--space-xl); }
+.pr-2xl  { padding-inline-end: var(--space-2xl); }
+
+/* --- Gap (flex/grid) --- */
+.gap-none { gap: var(--space-none); }
+.gap-xs   { gap: var(--space-xs); }
+.gap-sm   { gap: var(--space-sm); }
+.gap-md   { gap: var(--space-md); }
+.gap-lg   { gap: var(--space-lg); }
+.gap-xl   { gap: var(--space-xl); }
+.gap-2xl  { gap: var(--space-2xl); }
+
+.gap-x-none { column-gap: var(--space-none); }
+.gap-x-xs   { column-gap: var(--space-xs); }
+.gap-x-sm   { column-gap: var(--space-sm); }
+.gap-x-md   { column-gap: var(--space-md); }
+.gap-x-lg   { column-gap: var(--space-lg); }
+.gap-x-xl   { column-gap: var(--space-xl); }
+
+.gap-y-none { row-gap: var(--space-none); }
+.gap-y-xs   { row-gap: var(--space-xs); }
+.gap-y-sm   { row-gap: var(--space-sm); }
+.gap-y-md   { row-gap: var(--space-md); }
+.gap-y-lg   { row-gap: var(--space-lg); }
+.gap-y-xl   { row-gap: var(--space-xl); }
+/* type.css — [property]-[value] */
+
+/* --- Family (override tokens, not these classes) --- */
+.font-sans  { font-family: var(--font-sans); }
+.font-serif { font-family: var(--font-serif); }
+.font-mono  { font-family: var(--font-mono); }
+
+/* --- Size --- */
+.text-xs   { font-size: var(--text-size-xs); }
+.text-sm   { font-size: var(--text-size-sm); }
+.text-base { font-size: var(--text-size-base); }
+.text-md   { font-size: var(--text-size-md); }
+.text-lg   { font-size: var(--text-size-lg); }
+.text-xl   { font-size: var(--text-size-xl); }
+.text-2xl  { font-size: var(--text-size-2xl); }
+.text-3xl  { font-size: var(--text-size-3xl); }
+
+/* --- Weight --- */
+.font-normal   { font-weight: 400; }
+.font-medium   { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold     { font-weight: 700; }
+
+/* --- Leading (line-height) --- */
+.leading-tight { line-height: var(--text-leading-tight); }
+.leading-base  { line-height: var(--text-leading-base); }
+.leading-loose { line-height: var(--text-leading-loose); }
+
+/* --- Tracking (letter-spacing) --- */
+.tracking-tight { letter-spacing: var(--text-tracking-tight); }
+.tracking-base  { letter-spacing: var(--text-tracking-base); }
+.tracking-wide  { letter-spacing: var(--text-tracking-wide); }
+
+/* --- Align --- */
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+/* --- Transform --- */
+.uppercase  { text-transform: uppercase; }
+.lowercase  { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+/* --- Style --- */
+.italic      { font-style: italic; }
+.underline   { text-decoration: underline; }
+.no-underline{ text-decoration: none; }
+
+/* --- Wrap — modern CSS, broad browser support --- */
+.text-balance { text-wrap: balance; }  /* headings — eliminates orphaned words  */
+.text-pretty  { text-wrap: pretty;  }  /* body copy — optimises the last line   */
+
+/* --- Whitespace --- */
+.whitespace-nowrap { white-space: nowrap; }      /* labels, badges, button text  */
+.break-words       { overflow-wrap: break-word; } /* URLs, user-generated content */
+
+/* --- List reset --- */
+.list-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Truncate — composite, but too useful to leave out --- */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* color.css — [property]-[value] */
+/* All values reference tokens. Never hardcode colors here. */
+
+/* --- Text color --- */
+.text-default { color: var(--color-text); }
+.text-subtle  { color: var(--color-text-subtle); }
+.text-strong  { color: var(--color-text-strong); }
+.text-accent  { color: var(--color-accent); }
+.text-danger  { color: var(--color-danger); }
+.text-success { color: var(--color-success); }
+.text-inherit { color: inherit; }
+
+/* --- Background --- */
+.bg-surface      { background-color: var(--color-surface); }
+.bg-raised       { background-color: var(--color-surface-raised); }
+.bg-sunken       { background-color: var(--color-surface-sunken); }
+.bg-accent       { background-color: var(--color-accent); }
+.bg-danger       { background-color: var(--color-danger); }
+.bg-success      { background-color: var(--color-success); }
+.bg-transparent  { background-color: transparent; }
+
+/* --- Border color --- */
+/* Pair with .border from border.css: <div class="border border-accent"> */
+.border-default { border-color: var(--color-border); }
+.border-accent  { border-color: var(--color-accent); }
+.border-danger  { border-color: var(--color-danger); }
+.border-success { border-color: var(--color-success); }
+
+/* --- Opacity --- */
+.opacity-0   { opacity: 0; }
+.opacity-25  { opacity: 0.25; }
+.opacity-50  { opacity: 0.5; }
+.opacity-75  { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+/* layout.css — [property]-[value] */
+/* Display, position, visibility, and stacking */
+
+/* --- Display --- */
+.block       { display: block; }
+.inline      { display: inline; }
+.inline-block{ display: inline-block; }
+.flex        { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid        { display: grid; }
+.inline-grid { display: inline-grid; }
+.contents    { display: contents; }
+.hidden      { display: none; }
+
+/* --- Position --- */
+.static   { position: static; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed    { position: fixed; }
+.sticky   { position: sticky; }
+
+/* --- Inset (logical) --- */
+/* Full inset */
+.inset-none { inset: 0; }
+.inset-auto { inset: auto; }
+
+/* Block (vertical) */
+.inset-block-none  { inset-block: 0; }
+.inset-block-auto  { inset-block: auto; }
+.inset-block-start-none { inset-block-start: 0; }
+.inset-block-start-auto { inset-block-start: auto; }
+.inset-block-end-none   { inset-block-end: 0; }
+.inset-block-end-auto   { inset-block-end: auto; }
+
+/* Inline (horizontal) */
+.inset-inline-none  { inset-inline: 0; }
+.inset-inline-auto  { inset-inline: auto; }
+.inset-inline-start-none { inset-inline-start: 0; }
+.inset-inline-start-auto { inset-inline-start: auto; }
+.inset-inline-end-none   { inset-inline-end: 0; }
+.inset-inline-end-auto   { inset-inline-end: auto; }
+
+/* --- Visibility --- */
+.visible   { visibility: visible; }
+.invisible { visibility: hidden; }
+
+/* --- Isolation --- */
+.isolate      { isolation: isolate; }
+.isolate-auto { isolation: auto; }
+
+/* --- Float (logical) --- */
+.float-start { float: inline-start; }
+.float-end   { float: inline-end; }
+.float-none  { float: none; }
+.clear-both  { clear: both; }
+
+/* --- Object fit --- */
+.object-contain { object-fit: contain; }
+.object-cover   { object-fit: cover; }
+.object-fill    { object-fit: fill; }
+.object-none    { object-fit: none; }
+
+/* --- Overflow --- */
+.overflow-auto    { overflow: auto; }
+.overflow-hidden  { overflow: hidden; }
+.overflow-clip    { overflow: clip; }
+.overflow-visible { overflow: visible; }
+.overflow-scroll  { overflow: scroll; }
+
+.overflow-x-auto   { overflow-x: auto; }
+.overflow-x-hidden { overflow-x: hidden; }
+.overflow-x-clip   { overflow-x: clip; }
+.overflow-x-scroll { overflow-x: scroll; }
+
+.overflow-y-auto   { overflow-y: auto; }
+.overflow-y-hidden { overflow-y: hidden; }
+.overflow-y-clip   { overflow-y: clip; }
+.overflow-y-scroll { overflow-y: scroll; }
+
+/* --- Pointer events --- */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* sizing.css — [property]-[value] */
+/* Width, height, min/max constraints */
+/* Uses logical properties: inline-size (width), block-size (height) */
+
+/* --- Width (inline-size) --- */
+.w-auto { inline-size: auto; }
+.w-full { inline-size: 100%; }
+.w-screen { inline-size: 100vw; }
+.w-min  { inline-size: min-content; }
+.w-max  { inline-size: max-content; }
+.w-fit  { inline-size: fit-content; }
+
+/* Token-based widths */
+.w-xs  { inline-size: var(--space-xs); }
+.w-sm  { inline-size: var(--space-sm); }
+.w-md  { inline-size: var(--space-md); }
+.w-lg  { inline-size: var(--space-lg); }
+.w-xl  { inline-size: var(--space-xl); }
+.w-2xl { inline-size: var(--space-2xl); }
+.w-3xl { inline-size: var(--space-3xl); }
+
+/* --- Height (block-size) --- */
+.h-auto   { block-size: auto; }
+.h-full   { block-size: 100%; }
+.h-screen { block-size: 100dvh; }
+.h-min    { block-size: min-content; }
+.h-max    { block-size: max-content; }
+.h-fit    { block-size: fit-content; }
+
+/* Token-based heights */
+.h-xs  { block-size: var(--space-xs); }
+.h-sm  { block-size: var(--space-sm); }
+.h-md  { block-size: var(--space-md); }
+.h-lg  { block-size: var(--space-lg); }
+.h-xl  { block-size: var(--space-xl); }
+.h-2xl { block-size: var(--space-2xl); }
+.h-3xl { block-size: var(--space-3xl); }
+
+/* --- Min width (min-inline-size) --- */
+.min-w-0    { min-inline-size: 0; }
+.min-w-full { min-inline-size: 100%; }
+.min-w-min  { min-inline-size: min-content; }
+.min-w-max  { min-inline-size: max-content; }
+.min-w-fit  { min-inline-size: fit-content; }
+
+/* --- Max width (max-inline-size) --- */
+.max-w-none { max-inline-size: none; }
+.max-w-full { max-inline-size: 100%; }
+.max-w-min  { max-inline-size: min-content; }
+.max-w-max  { max-inline-size: max-content; }
+.max-w-fit  { max-inline-size: fit-content; }
+
+/* Prose/container max-widths — named for purpose, not pixels */
+.max-w-prose { max-inline-size: 65ch; }
+.max-w-narrow{ max-inline-size: 45ch; }
+.max-w-wide  { max-inline-size: 85ch; }
+
+/* Breakpoint-aligned container widths */
+.max-w-s  { max-inline-size: 30rem; }  /* 480px */
+.max-w-m  { max-inline-size: 48rem; }  /* 768px */
+.max-w-l  { max-inline-size: 64rem; }  /* 1024px */
+.max-w-xl { max-inline-size: 80rem; }  /* 1280px */
+
+/* --- Min height (min-block-size) --- */
+.min-h-0      { min-block-size: 0; }
+.min-h-full   { min-block-size: 100%; }
+.min-h-screen { min-block-size: 100dvh; }
+.min-h-min    { min-block-size: min-content; }
+.min-h-fit    { min-block-size: fit-content; }
+
+/* --- Max height (max-block-size) --- */
+.max-h-none   { max-block-size: none; }
+.max-h-full   { max-block-size: 100%; }
+.max-h-screen { max-block-size: 100dvh; }
+.max-h-min    { max-block-size: min-content; }
+.max-h-fit    { max-block-size: fit-content; }
+
+/* --- Aspect ratio --- */
+.aspect-auto    { aspect-ratio: auto; }
+.aspect-square  { aspect-ratio: 1; }
+.aspect-video   { aspect-ratio: 16 / 9; }
+.aspect-photo   { aspect-ratio: 4 / 3; }
+.aspect-wide    { aspect-ratio: 21 / 9; }
+
+/* border.css — [property]-[value] */
+/* Border width, style, radius */
+/* Pair with border-color utilities from colors.css */
+
+/* --- Border width --- */
+/* Apply style + color first, then width: <div class="border border-default"> */
+.border   { border: 1px solid var(--color-border); }
+.border-0 { border-width: 0; }
+.border-2 { border-width: 2px; }
+.border-4 { border-width: 4px; }
+
+/* Block (vertical) */
+.border-t   { border-block-start: 1px solid var(--color-border); }
+.border-t-0 { border-block-start-width: 0; }
+.border-t-2 { border-block-start-width: 2px; }
+
+.border-b   { border-block-end: 1px solid var(--color-border); }
+.border-b-0 { border-block-end-width: 0; }
+.border-b-2 { border-block-end-width: 2px; }
+
+/* Inline (horizontal) */
+.border-l   { border-inline-start: 1px solid var(--color-border); }
+.border-l-0 { border-inline-start-width: 0; }
+.border-l-2 { border-inline-start-width: 2px; }
+
+.border-r   { border-inline-end: 1px solid var(--color-border); }
+.border-r-0 { border-inline-end-width: 0; }
+.border-r-2 { border-inline-end-width: 2px; }
+
+/* --- Border style --- */
+.border-solid  { border-style: solid; }
+.border-dashed { border-style: dashed; }
+.border-dotted { border-style: dotted; }
+.border-none   { border-style: none; }
+
+/* --- Border radius --- */
+/* Uses the shared space scale for consistency */
+.rounded-none { border-radius: 0; }
+.rounded-xs   { border-radius: var(--space-xs); }   /* 4px  — subtle */
+.rounded-sm   { border-radius: var(--space-sm); }   /* 8px  — cards  */
+.rounded-md   { border-radius: var(--space-md); }   /* 16px — modals */
+.rounded-lg   { border-radius: var(--space-lg); }   /* 24px — pills  */
+.rounded-full { border-radius: 9999px; }             /* circles       */
+
+/* Single-side radius (logical) */
+.rounded-t-none { border-start-start-radius: 0; border-start-end-radius: 0; }
+.rounded-t-sm   { border-start-start-radius: var(--space-sm); border-start-end-radius: var(--space-sm); }
+.rounded-t-md   { border-start-start-radius: var(--space-md); border-start-end-radius: var(--space-md); }
+
+.rounded-b-none { border-end-start-radius: 0; border-end-end-radius: 0; }
+.rounded-b-sm   { border-end-start-radius: var(--space-sm); border-end-end-radius: var(--space-sm); }
+.rounded-b-md   { border-end-start-radius: var(--space-md); border-end-end-radius: var(--space-md); }
+
+/* --- Outline --- */
+/* Focus rings, non-layout-affecting borders */
+.outline-none   { outline: none; }
+.outline        { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.outline-offset { outline-offset: 4px; }
+
+/* --- Divider (child combinator) --- */
+/* Apply to parent: <div class="divide-y"> children get top borders */
+.divide-y > * + * { border-block-start: 1px solid var(--color-border); }
+.divide-x > * + * { border-inline-start: 1px solid var(--color-border); }
+
+/* flex.css — [property]-[value] */
+/* Flex container and item utilities */
+
+/* --- Direction --- */
+.flex-row     { flex-direction: row; }
+.flex-col     { flex-direction: column; }
+.flex-row-rev { flex-direction: row-reverse; }
+.flex-col-rev { flex-direction: column-reverse; }
+
+/* --- Wrap --- */
+.flex-wrap    { flex-wrap: wrap; }
+.flex-nowrap  { flex-wrap: nowrap; }
+.flex-wrap-rev{ flex-wrap: wrap-reverse; }
+
+/* --- Grow / Shrink --- */
+.grow     { flex-grow: 1; }
+.grow-0   { flex-grow: 0; }
+.shrink   { flex-shrink: 1; }
+.shrink-0 { flex-shrink: 0; }
+
+/* --- Flex shorthand --- */
+.flex-1    { flex: 1 1 0%; }    /* grow equally, ignore basis */
+.flex-auto { flex: 1 1 auto; }  /* grow equally, basis = content */
+.flex-initial { flex: 0 1 auto; } /* default: shrink but don't grow */
+.flex-none { flex: none; }      /* rigid — no grow, no shrink */
+
+/* --- Justify content (main axis) --- */
+.justify-start   { justify-content: flex-start; }
+.justify-end     { justify-content: flex-end; }
+.justify-center  { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around  { justify-content: space-around; }
+.justify-evenly  { justify-content: space-evenly; }
+.justify-stretch { justify-content: stretch; }
+
+/* --- Align items (cross axis) --- */
+.items-start    { align-items: flex-start; }
+.items-end      { align-items: flex-end; }
+.items-center   { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch  { align-items: stretch; }
+
+/* --- Align self (individual cross axis) --- */
+.self-auto    { align-self: auto; }
+.self-start   { align-self: flex-start; }
+.self-end     { align-self: flex-end; }
+.self-center  { align-self: center; }
+.self-stretch { align-self: stretch; }
+.self-baseline{ align-self: baseline; }
+
+/* --- Align content (multi-line cross axis) --- */
+.content-start   { align-content: flex-start; }
+.content-end     { align-content: flex-end; }
+.content-center  { align-content: center; }
+.content-between { align-content: space-between; }
+.content-around  { align-content: space-around; }
+.content-stretch { align-content: stretch; }
+
+/* --- Order --- */
+.order-first { order: -9999; }
+.order-last  { order: 9999; }
+.order-none  { order: 0; }
+.order-1     { order: 1; }
+.order-2     { order: 2; }
+.order-3     { order: 3; }
+
+/* --- Place (shorthand for both axes) --- */
+.place-center  { place-content: center; }
+.place-start   { place-content: start; }
+.place-end     { place-content: end; }
+.place-between { place-content: space-between; }
+
+/* grid.css — [property]-[value] */
+/* CSS Grid container and item utilities */
+/* Column counts use the 12-column config from primitives */
+
+/* --- Template columns --- */
+.grid-cols-1  { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4  { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-6  { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.grid-cols-none { grid-template-columns: none; }
+
+/* Auto-fit / auto-fill — responsive grids without breakpoints */
+/* Override --grid-min with a custom property for control */
+.grid-auto-fit {
+  --grid-min: 15rem;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+}
+.grid-auto-fill {
+  --grid-min: 15rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min), 1fr));
+}
+
+/* --- Template rows --- */
+.grid-rows-1    { grid-template-rows: repeat(1, minmax(0, 1fr)); }
+.grid-rows-2    { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.grid-rows-3    { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+.grid-rows-none { grid-template-rows: none; }
+
+/* --- Grid flow --- */
+.grid-flow-row       { grid-auto-flow: row; }
+.grid-flow-col       { grid-auto-flow: column; }
+.grid-flow-row-dense { grid-auto-flow: row dense; }
+.grid-flow-col-dense { grid-auto-flow: column dense; }
+
+/* --- Column span --- */
+.col-auto     { grid-column: auto; }
+.col-span-1   { grid-column: span 1 / span 1; }
+.col-span-2   { grid-column: span 2 / span 2; }
+.col-span-3   { grid-column: span 3 / span 3; }
+.col-span-4   { grid-column: span 4 / span 4; }
+.col-span-6   { grid-column: span 6 / span 6; }
+.col-span-8   { grid-column: span 8 / span 8; }
+.col-span-12  { grid-column: span 12 / span 12; }
+.col-span-full{ grid-column: 1 / -1; }
+
+/* --- Column start / end --- */
+.col-start-1  { grid-column-start: 1; }
+.col-start-2  { grid-column-start: 2; }
+.col-start-3  { grid-column-start: 3; }
+.col-start-4  { grid-column-start: 4; }
+.col-start-auto { grid-column-start: auto; }
+
+.col-end-auto { grid-column-end: auto; }
+.col-end-last { grid-column-end: -1; }
+
+/* --- Row span --- */
+.row-auto      { grid-row: auto; }
+.row-span-1    { grid-row: span 1 / span 1; }
+.row-span-2    { grid-row: span 2 / span 2; }
+.row-span-3    { grid-row: span 3 / span 3; }
+.row-span-full { grid-row: 1 / -1; }
+
+/* --- Row start --- */
+.row-start-1    { grid-row-start: 1; }
+.row-start-2    { grid-row-start: 2; }
+.row-start-3    { grid-row-start: 3; }
+.row-start-auto { grid-row-start: auto; }
+
+/* --- Place items (grid-specific alignment) --- */
+.place-items-start   { place-items: start; }
+.place-items-end     { place-items: end; }
+.place-items-center  { place-items: center; }
+.place-items-stretch { place-items: stretch; }
+
+/* --- Place self (individual cell alignment) --- */
+.place-self-start   { place-self: start; }
+.place-self-end     { place-self: end; }
+.place-self-center  { place-self: center; }
+.place-self-stretch { place-self: stretch; }
+
+/* --- Subgrid --- */
+.subgrid-cols { grid-template-columns: subgrid; }
+.subgrid-rows { grid-template-rows: subgrid; }
+
+/* responsive.css — curated breakpoint overrides */
+/* Only utilities that change BEHAVIOR at breakpoints live here. */
+/* Everything else scales automatically via fluid tokens. */
+/* Naming: .utility\@bp — "this utility AT this breakpoint" */
+
+/*
+  Breakpoints (mobile-first, min-width):
+  @s  — 30rem  (480px)
+  @m  — 48rem  (768px)
+  @l  — 64rem  (1024px)
+  @xl — 80rem  (1280px)
+*/
+
+/* ========================================
+   @s — 30rem / 480px
+   ======================================== */
+@media (min-width: 30rem) {
+
+  /* Display */
+  .hidden\@s { display: none; }
+  .block\@s  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@s { flex-direction: row; }
+  .flex-col\@s { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-1\@s { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2\@s { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-lg\@s  { font-size: var(--text-size-lg); }
+  .text-xl\@s  { font-size: var(--text-size-xl); }
+}
+
+/* ========================================
+   @m — 48rem / 768px
+   ======================================== */
+@media (min-width: 48rem) {
+
+  /* Display */
+  .hidden\@m { display: none; }
+  .block\@m  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@m { flex-direction: row; }
+  .flex-col\@m { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-1\@m { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2\@m { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3\@m { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4\@m { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-lg\@m  { font-size: var(--text-size-lg); }
+  .text-xl\@m  { font-size: var(--text-size-xl); }
+  .text-2xl\@m { font-size: var(--text-size-2xl); }
+}
+
+/* ========================================
+   @l — 64rem / 1024px
+   ======================================== */
+@media (min-width: 64rem) {
+
+  /* Display */
+  .hidden\@l { display: none; }
+  .block\@l  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@l { flex-direction: row; }
+  .flex-col\@l { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-1\@l { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2\@l { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3\@l { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4\@l { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid-cols-6\@l { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-lg\@l  { font-size: var(--text-size-lg); }
+  .text-xl\@l  { font-size: var(--text-size-xl); }
+  .text-2xl\@l { font-size: var(--text-size-2xl); }
+  .text-3xl\@l { font-size: var(--text-size-3xl); }
+}
+
+/* ========================================
+   @xl — 80rem / 1280px
+   ======================================== */
+@media (min-width: 80rem) {
+
+  /* Display */
+  .hidden\@xl { display: none; }
+  .block\@xl  { display: block; }
+
+  /* Flex direction */
+  .flex-row\@xl { flex-direction: row; }
+  .flex-col\@xl { flex-direction: column; }
+
+  /* Grid columns */
+  .grid-cols-2\@xl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3\@xl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4\@xl { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid-cols-6\@xl { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .grid-cols-12\@xl{ grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+  /* Text size */
+  .text-xl\@xl  { font-size: var(--text-size-xl); }
+  .text-2xl\@xl { font-size: var(--text-size-2xl); }
+  .text-3xl\@xl { font-size: var(--text-size-3xl); }
+}
+
+
+ }
+@layer compositions { /* compositions.css */
+
+/* Stack: vertical rhythm with consistent gap */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.stack-sm { gap: var(--space-sm); }
+.stack-lg { gap: var(--space-lg); }
+
+/* Cluster: horizontal grouping that wraps */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/* Sidebar: classic holy grail 2-col */
+.sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.sidebar > :first-child { flex-basis: 20rem; flex-grow: 1; }
+.sidebar > :last-child  { flex-basis: 0; flex-grow: 999; min-inline-size: 50%; }
+
+/* Center: dead center */
+.center-xy { display: grid; place-items: center; }
+
+/* Cover: fill viewport, center child */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100dvh;
+}
+.cover > * { margin-block: auto; }
+ }

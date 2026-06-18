@@ -8,25 +8,27 @@
   --font-mono:  ui-monospace, monospace;
 
   /* === SPACE TOKENS === */
-  --space-none: var(--primitive-0);
-  --space-xs:   var(--primitive-1);   /* 4px  — tight nudges       */
-  --space-sm:   var(--primitive-2);   /* 8px  — inline gaps        */
-  --space-md:   var(--primitive-4);   /* 16px — base unit          */
-  --space-lg:   var(--primitive-6);   /* 24px — section breathing  */
-  --space-xl:   var(--primitive-8);   /* 32px — layout gaps        */
-  --space-2xl:  var(--primitive-12);  /* 48px — section breaks     */
-  --space-3xl:  var(--primitive-16);  /* 64px — hero regions       */
+  /* xs/sm stay fixed — sub-8px nudges shouldn't scale */
+  /* md+ use clamp() to scale gently with viewport    */
+  --space-none: 0;
+  --space-xs:   var(--primitive-1);                         /* 4px  — fixed */
+  --space-sm:   var(--primitive-2);                         /* 8px  — fixed */
+  --space-md:   clamp(0.875rem, 0.75rem + 0.25vw, 1rem);   /* 14–16px */
+  --space-lg:   clamp(1.25rem,  1rem + 0.5vw, 1.5rem);     /* 20–24px */
+  --space-xl:   clamp(1.75rem,  1.5rem + 0.5vw, 2rem);     /* 28–32px */
+  --space-2xl:  clamp(2.5rem,   2rem + 1vw, 3rem);          /* 40–48px */
+  --space-3xl:  clamp(3.5rem,   3rem + 1vw, 4rem);          /* 56–64px */
 
   /* === TYPE TOKENS === */
-  /* Same scale as space. --space-md === --text-size-base. Intentional. */
-  --text-size-xs:   var(--primitive-text-xs);
-  --text-size-sm:   var(--primitive-text-sm);
-  --text-size-base: var(--primitive-text-base);
-  --text-size-md:   var(--primitive-text-md);
-  --text-size-lg:   var(--primitive-text-lg);
-  --text-size-xl:   var(--primitive-text-xl);
-  --text-size-2xl:  var(--primitive-text-2xl);
-  --text-size-3xl:  var(--primitive-text-3xl);
+  /* Same scale as space. xs/sm/base stay fixed, md+ scale with viewport. */
+  --text-size-xs:   var(--primitive-text-xs);                             /* fixed */
+  --text-size-sm:   var(--primitive-text-sm);                             /* fixed */
+  --text-size-base: var(--primitive-text-base);                           /* fixed 1rem */
+  --text-size-md:   clamp(1.125rem, 1rem + 0.25vw, 1.25rem);             /* 18–20px */
+  --text-size-lg:   clamp(1.35rem,  1.2rem + 0.35vw, 1.563rem);          /* ~22–25px */
+  --text-size-xl:   clamp(1.6rem,   1.4rem + 0.5vw, 1.953rem);           /* ~26–31px */
+  --text-size-2xl:  clamp(2rem,     1.75rem + 0.75vw, 2.441rem);         /* ~32–39px */
+  --text-size-3xl:  clamp(2.5rem,   2rem + 1vw, 3.052rem);              /* ~40–49px */
 
   --text-leading-tight: 1.2;
   --text-leading-base:  1.5;

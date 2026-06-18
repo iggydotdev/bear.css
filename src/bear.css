@@ -1,5 +1,7 @@
-@import "./reset.css";
-@import "./primitives.css";
-@import "./tokens.css";
-@import "./properties.css";
-@import "./composition.css";
+@layer reset, primitives, tokens, properties, compositions;
+
+@layer reset { @import "./reset.css"; }
+@layer primitives { @import "./primitives.css"; }
+@layer tokens { @import "./tokens.css"; }
+@layer properties { @import "./properties.css"; }
+@layer compositions { @import "./composition.css"; }
