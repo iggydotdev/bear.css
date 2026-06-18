@@ -1,0 +1,104 @@
+/* reset.css — sane defaults, consistent baseline */
+/* Opinionated where it helps. Minimal where it doesn't. */
+
+/* --- Box model --- */
+/* Everything uses border-box. No exceptions. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* --- Margins and padding --- */
+/* Browsers have wildly different defaults. Start from zero. */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Root --- */
+/* Respect the user's browser font size setting */
+:root {
+  font-size: 100%;
+}
+
+/* --- Body --- */
+/* Wire directly into tokens so overriding a token updates everything */
+body {
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  font-size: var(--text-size-base);
+  line-height: var(--text-leading-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Headings --- */
+/* Reset size and weight — apply with utilities: .text-2xl.font-bold */
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: var(--text-leading-tight);
+}
+
+/* --- Typography --- */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* --- Links --- */
+/* Unstyled by default. Style with utilities or your own CSS. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Lists --- */
+/* Only reset when explicitly opting out with role or class */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* --- Media --- */
+/* Block-level, responsive by default */
+img, picture, video, canvas, svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+/* --- Forms --- */
+/* Inherit the document font — browsers don't do this by default */
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Remove the default button look */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Textarea — no horizontal resize by default */
+textarea {
+  resize: vertical;
+}
+
+/* --- Tables --- */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* --- Reduced motion --- */
+/* Respect the user's OS preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
