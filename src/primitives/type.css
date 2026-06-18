@@ -1,0 +1,12 @@
+/* type.css — raw type scale, never used directly in HTML */
+/* Modular scale, ratio 1.25 from a 1rem base */
+:root {
+  --primitive-text-xs:   0.64rem;
+  --primitive-text-sm:   0.8rem;
+  --primitive-text-base: 1rem;
+  --primitive-text-md:   1.25rem;
+  --primitive-text-lg:   1.563rem;
+  --primitive-text-xl:   1.953rem;
+  --primitive-text-2xl:  2.441rem;
+  --primitive-text-3xl:  3.052rem;
+}

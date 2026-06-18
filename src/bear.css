@@ -4,7 +4,7 @@
 @layer reset, primitives, tokens, properties, compositions;
  
 @import "./reset.css"       layer(reset);
-@import "./primitives/primitives.css"  layer(primitives);
+@import "./primitives/index.css"  layer(primitives);
 @import "./tokens/tokens.css"      layer(tokens);
 @import "./properties/index.css"  layer(properties);
 @import "./compositions/compositions.css" layer(compositions);

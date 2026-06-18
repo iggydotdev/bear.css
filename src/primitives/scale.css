@@ -1,0 +1,16 @@
+/* scale.css — raw numeric scale, never used directly in HTML */
+/* Base grid unit is 4px = 0.25rem */
+:root {
+  --primitive-0:  0;
+  --primitive-1:  0.25rem;   /* 4px  */
+  --primitive-2:  0.5rem;    /* 8px  */
+  --primitive-3:  0.75rem;   /* 12px */
+  --primitive-4:  1rem;      /* 16px */
+  --primitive-6:  1.5rem;    /* 24px */
+  --primitive-8:  2rem;      /* 32px */
+  --primitive-12: 3rem;      /* 48px */
+  --primitive-16: 4rem;      /* 64px */
+  --primitive-24: 6rem;      /* 96px */
+  --primitive-32: 8rem;      /* 128px */
+}
+ 

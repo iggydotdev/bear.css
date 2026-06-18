@@ -1,0 +1,15 @@
+/* colors.css — raw colors, no semantics yet */
+/* Never reference these outside of tokens.css. HTML never sees a primitive directly. */
+:root {
+  --primitive-gray-0:    #ffffff;
+  --primitive-gray-50:   #f8f8f8;
+  --primitive-gray-100:  #f0f0f0;
+  --primitive-gray-200:  #e0e0e0;
+  --primitive-gray-500:  #6b6b6b;
+  --primitive-gray-800:  #1a1a1a;
+  --primitive-gray-900:  #0f0f0f;
+  --primitive-blue-500:  #3d5afe;
+  --primitive-blue-600:  #3751e0;
+  --primitive-red-500:   #f44336;
+  --primitive-green-500: #4caf50;
+}
