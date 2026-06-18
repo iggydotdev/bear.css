@@ -1,0 +1,16 @@
+{
+  "name": "bear.css",
+  "version": "0.1.0",
+  "description": "Companion CSS utility system built with a five-level atomic hierarchy",
+  "main": "dist/bear.css",
+  "scripts": {
+    "build": "node src/build.js"
+  },
+  "keywords": [
+    "css",
+    "utility",
+    "atomic"
+  ],
+  "author": "",
+  "license": "MIT"
+}
