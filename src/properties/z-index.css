@@ -1,0 +1,18 @@
+/* z-index.css — [property]-[value] */
+/* Named layers, not raw numbers. .z-30 tells you nothing; .z-dropdown does. */
+/* Stick to this scale — don't reach for an arbitrary z-index value in component CSS. */
+/* If something genuinely doesn't fit, that's a sign the scale needs a new named rung, */
+/* not a one-off magic number. */
+
+.z-behind   { z-index: var(--z-behind); }   /* tucked under its own parent — rare */
+.z-base     { z-index: var(--z-base); }     /* default stacking context */
+.z-raised   { z-index: var(--z-raised); }   /* cards, hover-raised elements */
+.z-sticky   { z-index: var(--z-sticky); }   /* sticky headers, sticky table heads */
+.z-dropdown { z-index: var(--z-dropdown); } /* menus, select dropdowns, comboboxes */
+.z-overlay  { z-index: var(--z-overlay); }  /* backdrop behind a modal */
+.z-modal    { z-index: var(--z-modal); }    /* modal/dialog content */
+.z-popover  { z-index: var(--z-popover); }  /* popovers anchored above modals */
+.z-toast    { z-index: var(--z-toast); }    /* toast/snackbar notifications */
+.z-tooltip  { z-index: var(--z-tooltip); }  /* tooltips — always on top of content */
+.z-max      { z-index: var(--z-max); }      /* escape hatch — use sparingly, document why */
+.z-auto     { z-index: auto; }              /* resets to default stacking */
