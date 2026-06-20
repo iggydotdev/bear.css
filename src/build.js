@@ -4,20 +4,12 @@ const path = require('path')
 
 // 1. Compile Config
 function compileConfig() {
-  const indexCssPath = path.join(__dirname, 'primitives/index.css')
-  const indexContent = fs.readFileSync(indexCssPath, 'utf8')
-
-  // Find the JSON block inside comment
-  const jsonMatch = indexContent.match(/\/\*([\s\S]+?)\*\//)
-  if (!jsonMatch) {
-    throw new Error('Could not find configuration JSON block in src/primitives/index.css')
-  }
-
+  const configPath = path.resolve(__dirname, '../bear.config.js')
   let config
   try {
-    config = JSON.parse(jsonMatch[1].trim())
+    config = require(configPath)
   } catch (err) {
-    throw new Error('Failed to parse JSON config in src/primitives/index.css: ' + err.message)
+    throw new Error(`Could not load config from ${configPath}: ` + err.message)
   }
 
   // Generate scale.css

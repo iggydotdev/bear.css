@@ -1,14 +1,4 @@
-/*
-{
-  "scale": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32],
-  "base-unit": 4,
-  "type-scale-ratio": 1.25,
-  "type-base": 16,
-  "columns": 12,
-  "breakpoints": { "s": 480, "m": 768, "l": 1024, "xl": 1280 }
-}
-*/
- 
+
 @import "./scale.css";
 @import "./type.css";
 @import "./colors.css";
