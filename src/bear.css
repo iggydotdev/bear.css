@@ -2,10 +2,9 @@
 /* Layer order declared first, then imports assigned to layers. */
 /* @import must appear before any other rules (except @layer declarations). */
 @layer reset, primitives, tokens, properties, compositions;
- 
-@import "./reset.css"       layer(reset);
-@import "./primitives/index.css"  layer(primitives);
-@import "./tokens/tokens.css"      layer(tokens);
-@import "./properties/index.css"  layer(properties);
-@import "./compositions/compositions.css" layer(compositions);
- 
+
+@import "./reset.css" layer(reset);
+@import "./primitives/index.css" layer(primitives);
+@import "./tokens/tokens.css" layer(tokens);
+@import "./properties/index.css" layer(properties);
+@import "./composition/composition.css" layer(compositions);

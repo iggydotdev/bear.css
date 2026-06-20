@@ -1,5 +1,6 @@
 /* type.css — raw type scale, never used directly in HTML */
-/* Modular scale, ratio 1.25 from a 1rem base */
+/* Automatically generated from config in src/primitives/index.css — DO NOT EDIT DIRECTLY */
+
 :root {
   --primitive-text-xs:   0.64rem;
   --primitive-text-sm:   0.8rem;
