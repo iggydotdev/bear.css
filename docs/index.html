@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bear.css — The Atomic Utility Framework</title>
+  <link rel="stylesheet" href="../dist/bear.css">
+  <style>
+    /* Small custom styles specific to docs, if needed. */
+    html { scroll-behavior: smooth; }
+    code { font-family: var(--font-mono); background: var(--color-surface-sunken); padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-sm); color: var(--color-text-strong); }
+    pre { background: var(--color-surface-sunken); padding: var(--space-md); border-radius: var(--radius-md); overflow-x: auto; }
+    pre code { background: transparent; padding: 0; }
+  </style>
+</head>
+<body class="bg-surface text-default">
+
+  <!-- Nav -->
+  <header class="border-b border-default p-md">
+    <div class="max-w-l mx-auto cluster justify-between">
+      <div class="text-xl font-bold text-strong tracking-tight">bear.css</div>
+      <div class="cluster gap-md text-sm">
+        <a href="#getting-started" class="hover:text-accent transition-colors">Getting Started</a>
+        <a href="#tokens" class="hover:text-accent transition-colors">Tokens</a>
+        <a href="#customization" class="hover:text-accent transition-colors">Customization</a>
+        <a href="#utilities" class="hover:text-accent transition-colors">Utilities</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="p-2xl center-xy text-center border-b border-default bg-raised">
+    <div class="stack gap-lg max-w-prose items-center">
+      <h1 class="text-3xl font-bold text-strong leading-tight text-balance">The simple, zero-dependency atomic CSS framework.</h1>
+      <p class="text-lg text-subtle text-pretty">Built on a 5-layer atomic stack. Understand it in a day, customize it in minutes. No build tools required for end users.</p>
+      <div class="cluster gap-md justify-center mt-md">
+        <a href="#getting-started" class="bg-accent text-surface px-lg py-sm rounded-md font-semibold hover:opacity-75 transition-opacity">Get Started</a>
+        <a href="#utilities" class="border border-default px-lg py-sm rounded-md font-semibold hover:bg-sunken transition-colors">View Utilities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-l mx-auto p-xl stack gap-2xl">
+    
+    <!-- Getting Started -->
+    <section id="getting-started" class="stack gap-md">
+      <h2 class="text-2xl font-bold text-strong border-b border-default pb-sm">Getting Started</h2>
+      <p>Drop the stylesheet into your HTML file. That's it.</p>
+      <pre><code>&lt;link rel="stylesheet" href="path/to/bear.css"&gt;</code></pre>
+      <div class="bg-sunken p-md rounded-md border border-default stack gap-sm mt-sm">
+        <h3 class="text-lg font-semibold text-strong">The Atomic Stack</h3>
+        <p class="text-subtle text-sm">The framework is built on a strict, 5-layer hierarchy. Everything traces back to a token, making it infinitely customizable.</p>
+        <ol class="list-none stack gap-xs mt-xs text-sm">
+          <li><strong class="text-accent">Level 0: Raw Values</strong> — Pure numbers, unitless (e.g. <code>4</code>).</li>
+          <li><strong class="text-accent">Level 1: Primitives</strong> — Raw values given units (e.g. <code>0.25rem</code>).</li>
+          <li><strong class="text-accent">Level 2: Tokens</strong> — Semantic names (e.g. <code>--space-xs</code>, <code>--color-accent</code>).</li>
+          <li><strong class="text-accent">Level 3: Properties</strong> — Tokens mapped to utility classes (e.g. <code>.m-xs</code>).</li>
+          <li><strong class="text-accent">Level 4: Compositions</strong> — Abstract layout patterns (e.g. <code>.stack</code>).</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- The Token Scale -->
+    <section id="tokens" class="stack gap-md">
+      <h2 class="text-2xl font-bold text-strong border-b border-default pb-sm">The Token Scale</h2>
+      
+      <div class="grid grid-cols-1 grid-cols-2@m gap-xl">
+        
+        <!-- Typography -->
+        <div class="stack gap-sm">
+          <h3 class="text-lg font-semibold text-strong">Typography</h3>
+          <div class="stack gap-sm border border-default p-md rounded-md bg-raised overflow-hidden">
+            <div class="text-xs">.text-xs — The quick brown fox jumps over the lazy dog.</div>
+            <div class="text-sm">.text-sm — The quick brown fox jumps over the lazy dog.</div>
+            <div class="text-base">.text-base — The quick brown fox jumps over the lazy dog.</div>
+            <div class="text-md">.text-md — The quick brown fox jumps over the lazy dog.</div>
+            <div class="text-lg">.text-lg — The quick brown fox</div>
+            <div class="text-xl font-medium">.text-xl — The quick brown fox</div>
+            <div class="text-2xl font-semibold text-balance">.text-2xl — The quick brown fox</div>
+            <div class="text-3xl font-bold text-balance">.text-3xl — The quick brown fox</div>
+          </div>
+        </div>
+
+        <!-- Spacing -->
+        <div class="stack gap-sm">
+          <h3 class="text-lg font-semibold text-strong">Spacing</h3>
+          <div class="stack gap-sm border border-default p-md rounded-md bg-raised">
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-xs); block-size: 1rem;"></div><span class="text-sm text-subtle">xs</span></div>
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-sm); block-size: 1rem;"></div><span class="text-sm text-subtle">sm</span></div>
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-md); block-size: 1rem;"></div><span class="text-sm text-subtle">md</span></div>
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-lg); block-size: 1rem;"></div><span class="text-sm text-subtle">lg</span></div>
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-xl); block-size: 1rem;"></div><span class="text-sm text-subtle">xl</span></div>
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-2xl); block-size: 1rem;"></div><span class="text-sm text-subtle">2xl</span></div>
+            <div class="cluster items-center"><div class="bg-accent rounded-xs" style="inline-size: var(--space-3xl); block-size: 1rem;"></div><span class="text-sm text-subtle">3xl</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Customization -->
+    <section id="customization" class="stack gap-md">
+      <h2 class="text-2xl font-bold text-strong border-b border-default pb-sm">Customization</h2>
+      <p>Because <code>bear.css</code> is built entirely on native CSS variables, you can customize the theme instantly without a build step. Just override the <code>:root</code> variables in your own stylesheet.</p>
+      
+      <div class="grid grid-cols-1 grid-cols-2@m gap-md items-start">
+        <pre><code>/* your-styles.css */
+:root {
+  /* Change the brand color */
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7c3aed;
+
+  /* Increase border radii everywhere */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+}</code></pre>
+        <div class="bg-raised border border-default p-lg rounded-md stack gap-md center-xy" style="--color-accent: #8b5cf6; --color-accent-hover: #7c3aed; --radius-sm: 0.5rem; --radius-md: 1rem;">
+          <p class="text-center text-sm text-subtle">Live preview with custom CSS variable overrides.</p>
+          <button class="bg-accent text-surface px-lg py-sm rounded-md font-semibold hover:bg-accent hover:opacity-75 transition-colors">Customized Button</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Utilities -->
+    <section id="utilities" class="stack gap-md">
+      <h2 class="text-2xl font-bold text-strong border-b border-default pb-sm">Utility Classes</h2>
+      <p class="text-subtle">A quick reference to the naming conventions used in the framework.</p>
+      
+      <div class="grid grid-cols-1 grid-cols-3@l gap-lg mt-sm">
+        
+        <!-- Box Model -->
+        <div class="bg-raised p-md rounded-md border border-default stack gap-sm">
+          <h3 class="font-bold text-strong">Margin & Padding</h3>
+          <p class="text-sm text-subtle">Uses logical properties (block/inline) by default.</p>
+          <ul class="text-sm stack gap-xs mt-xs">
+            <li><code>.m-{scale}</code> / <code>.p-{scale}</code> (All sides)</li>
+            <li><code>.my-{scale}</code> / <code>.py-{scale}</code> (Block/Vertical)</li>
+            <li><code>.mx-{scale}</code> / <code>.px-{scale}</code> (Inline/Horizontal)</li>
+            <li><code>.mt-{scale}</code>, <code>.mb-{scale}</code></li>
+          </ul>
+        </div>
+
+        <!-- Typography -->
+        <div class="bg-raised p-md rounded-md border border-default stack gap-sm">
+          <h3 class="font-bold text-strong">Typography</h3>
+          <ul class="text-sm stack gap-xs">
+            <li><code>.text-{size}</code> (xs to 3xl)</li>
+            <li><code>.font-{weight}</code> (normal, medium, semibold, bold)</li>
+            <li><code>.leading-{size}</code> (tight, base, loose)</li>
+            <li><code>.text-balance</code>, <code>.text-pretty</code></li>
+          </ul>
+        </div>
+
+        <!-- Layout -->
+        <div class="bg-raised p-md rounded-md border border-default stack gap-sm">
+          <h3 class="font-bold text-strong">Layout Compositions</h3>
+          <ul class="text-sm stack gap-xs">
+            <li><code>.stack</code> (Vertical rhythm)</li>
+            <li><code>.cluster</code> (Horizontal wrap)</li>
+            <li><code>.sidebar</code> (Classic 2-col)</li>
+            <li><code>.center-xy</code> (Dead center)</li>
+            <li><code>.cover</code> (100dvh center)</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-default p-xl text-center text-subtle text-sm mt-3xl">
+    <p>Built with bear.css. Open sourced under the MIT License.</p>
+  </footer>
+
+</body>
+</html>
