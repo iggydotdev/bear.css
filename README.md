@@ -17,14 +17,14 @@ Change a token, everything built on it updates — that's the whole point.
 ## Structure
 
 ```
-bear.css/
+├── bear.config.js               ← global framework configuration
 ├── src/
 │   ├── bear.css                 ← entry point, just @imports
 │   ├── reset.css
 │   ├── primitives/
 │   │   ├── index.css            ← entry, just @imports
-│   │   ├── scale.css
-│   │   ├── type.css
+│   │   ├── scale.css            ← auto-generated
+│   │   ├── type.css             ← auto-generated
 │   │   └── colors.css
 │   ├── tokens/
 │   │   └── tokens.css
@@ -33,28 +33,36 @@ bear.css/
 │   └── properties/
 │       ├── index.css            ← entry, just @imports
 │       ├── space.css
-│       ├── type.css
-│       ├── colors.css
 │       ├── layout.css
-│       ├── sizing.css
-│       ├── border.css
-│       ├── flex.css
-│       ├── grid.css
-│       ├── z-index.css
-│       ├── transition.css
-│       ├── state.css
-│       ├── accessibility.css
-│       └── responsive.css
+│       └── responsive.css       ← auto-generated (@media and @container)
 ├── dist/
 │   └── bear.css                 ← the one <link> file, generated
 └── package.json
 ```
 
+## Configuration
+
+The framework is driven by a single JavaScript configuration file: `bear.config.js`. 
+
+```javascript
+module.exports = {
+  "scale": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32],
+  "base-unit": 4,
+  "type-scale-ratio": 1.25,
+  "type-base": 16,
+  "breakpoints": { "s": 480, "m": 768, "l": 1024, "xl": 1280 }
+};
+```
+
 ## Build
 
-```
+```bash
 npm run build
 ```
 
-Bundles everything under `src/` into the single `dist/bear.css` file. Link
-that one file — `src/` is never shipped to a browser.
+The zero-dependency compiler (`src/build.js`) will:
+1. Dynamically generate the primitive scales (`scale.css`, `type.css`) from your config.
+2. Dynamically generate BOTH `@media` (`\@s`) and `@container` (`\@c-s`) responsive query variants for your defined breakpoints.
+3. Bundle and minify everything into `dist/bear.css`.
+
+Link that one file in your HTML — `src/` is never shipped to a browser.

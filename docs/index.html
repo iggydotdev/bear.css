@@ -102,22 +102,26 @@
     <!-- Customization -->
     <section id="customization" class="stack gap-md">
       <h2 class="text-2xl font-bold text-strong border-b border-default pb-sm">Customization</h2>
-      <p>Because <code>bear.css</code> is built entirely on native CSS variables, you can customize the theme instantly without a build step. Just override the <code>:root</code> variables in your own stylesheet.</p>
+      <p>There are two ways to customize <code>bear.css</code> depending on your needs:</p>
       
       <div class="grid grid-cols-1 grid-cols-2@m gap-md items-start">
-        <pre><code>/* your-styles.css */
+        <div class="stack gap-sm">
+          <h3 class="font-bold text-strong">1. The Config File (For Maintainers)</h3>
+          <p class="text-sm text-subtle">Edit <code>bear.config.js</code> to completely regenerate the scale, typography ratios, and responsive breakpoints using <code>npm run build</code>.</p>
+          <pre><code>/* bear.config.js */
+module.exports = {
+  "base-unit": 4,
+  "breakpoints": { "s": 480, "m": 768 }
+};</code></pre>
+        </div>
+        <div class="stack gap-sm">
+          <h3 class="font-bold text-strong">2. CSS Variables (For Consumers)</h3>
+          <p class="text-sm text-subtle">Customize the theme instantly without a build step by overriding the <code>:root</code> variables in your own stylesheet.</p>
+          <pre><code>/* your-styles.css */
 :root {
-  /* Change the brand color */
   --color-accent: #8b5cf6;
-  --color-accent-hover: #7c3aed;
-
-  /* Increase border radii everywhere */
   --radius-sm: 0.5rem;
-  --radius-md: 1rem;
 }</code></pre>
-        <div class="bg-raised border border-default p-lg rounded-md stack gap-md center-xy" style="--color-accent: #8b5cf6; --color-accent-hover: #7c3aed; --radius-sm: 0.5rem; --radius-md: 1rem;">
-          <p class="text-center text-sm text-subtle">Live preview with custom CSS variable overrides.</p>
-          <button class="bg-accent text-surface px-lg py-sm rounded-md font-semibold hover:bg-accent hover:opacity-75 transition-colors">Customized Button</button>
         </div>
       </div>
     </section>
@@ -161,6 +165,18 @@
             <li><code>.sidebar</code> (Classic 2-col)</li>
             <li><code>.center-xy</code> (Dead center)</li>
             <li><code>.cover</code> (100dvh center)</li>
+          </ul>
+        </div>
+
+        <!-- Responsive & Container Queries -->
+        <div class="bg-raised p-md rounded-md border border-default stack gap-sm">
+          <h3 class="font-bold text-strong">Responsive Design</h3>
+          <p class="text-sm text-subtle">Dynamic query variants automatically generated from config.</p>
+          <ul class="text-sm stack gap-xs mt-xs">
+            <li><code>.\@s</code>, <code>.\@m</code>, <code>.\@l</code> (Viewport media queries)</li>
+            <li><code>.\@c-s</code>, <code>.\@c-m</code> (Container queries)</li>
+            <li><code>.container-type-inline</code> (Creates container context)</li>
+            <li>Example: <code>.grid-cols-2\@c-m</code></li>
           </ul>
         </div>
 
