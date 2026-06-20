@@ -8,27 +8,24 @@
   --font-mono:  ui-monospace, monospace;
 
   /* === SPACE TOKENS === */
-  /* xs/sm stay fixed — sub-8px nudges shouldn't scale */
-  /* md+ use clamp() to scale gently with viewport    */
   --space-none: 0;
-  --space-xs:   var(--primitive-1);                         /* 4px  — fixed */
-  --space-sm:   var(--primitive-2);                         /* 8px  — fixed */
-  --space-md:   clamp(0.875rem, 0.75rem + 0.25vw, 1rem);   /* 14–16px */
-  --space-lg:   clamp(1.25rem,  1rem + 0.5vw, 1.5rem);     /* 20–24px */
-  --space-xl:   clamp(1.75rem,  1.5rem + 0.5vw, 2rem);     /* 28–32px */
-  --space-2xl:  clamp(2.5rem,   2rem + 1vw, 3rem);          /* 40–48px */
-  --space-3xl:  clamp(3.5rem,   3rem + 1vw, 4rem);          /* 56–64px */
+  --space-xs:   var(--primitive-1);
+  --space-sm:   var(--primitive-2);
+  --space-md:   clamp(0.875rem, 0.75rem + 0.25vw, 1rem);
+  --space-lg:   clamp(1.25rem,  1rem + 0.5vw, 1.5rem);
+  --space-xl:   clamp(1.75rem,  1.5rem + 0.5vw, 2rem);
+  --space-2xl:  clamp(2.5rem,   2rem + 1vw, 3rem);
+  --space-3xl:  clamp(3.5rem,   3rem + 1vw, 4rem);
 
   /* === TYPE TOKENS === */
-  /* Same scale as space. xs/sm/base stay fixed, md+ scale with viewport. */
-  --text-size-xs:   var(--primitive-text-xs);                             /* fixed */
-  --text-size-sm:   var(--primitive-text-sm);                             /* fixed */
-  --text-size-base: var(--primitive-text-base);                           /* fixed 1rem */
-  --text-size-md:   clamp(1.125rem, 1rem + 0.25vw, 1.25rem);             /* 18–20px */
-  --text-size-lg:   clamp(1.35rem,  1.2rem + 0.35vw, 1.563rem);          /* ~22–25px */
-  --text-size-xl:   clamp(1.6rem,   1.4rem + 0.5vw, 1.953rem);           /* ~26–31px */
-  --text-size-2xl:  clamp(2rem,     1.75rem + 0.75vw, 2.441rem);         /* ~32–39px */
-  --text-size-3xl:  clamp(2.5rem,   2rem + 1vw, 3.052rem);              /* ~40–49px */
+  --text-size-xs:   var(--primitive-text-xs);
+  --text-size-sm:   var(--primitive-text-sm);
+  --text-size-base: var(--primitive-text-base);
+  --text-size-md:   clamp(1.125rem, 1rem + 0.25vw, 1.25rem);
+  --text-size-lg:   clamp(1.35rem,  1.2rem + 0.35vw, 1.563rem);
+  --text-size-xl:   clamp(1.6rem,   1.4rem + 0.5vw, 1.953rem);
+  --text-size-2xl:  clamp(2rem,     1.75rem + 0.75vw, 2.441rem);
+  --text-size-3xl:  clamp(2.5rem,   2rem + 1vw, 3.052rem);
 
   --text-leading-tight: 1.2;
   --text-leading-base:  1.5;
@@ -38,8 +35,7 @@
   --text-tracking-base:   0;
   --text-tracking-wide:   0.05em;
 
-  /* === COLOR TOKENS — SEMANTIC === */
-  /* Override these. Never use primitives directly in your CSS. */
+  /* === COLOR TOKENS — SEMANTIC, LIGHT (default) === */
   --color-text:           var(--primitive-gray-800);
   --color-text-subtle:    var(--primitive-gray-500);
   --color-text-strong:    var(--primitive-gray-900);
@@ -52,9 +48,23 @@
   --color-danger:         var(--primitive-red-500);
   --color-success:        var(--primitive-green-500);
 
+  /* === RADIUS TOKENS === */
+  /* Deliberately separate from --space-*. Two reasons:
+     1. Spacing and corner radius are different design decisions — changing
+        one shouldn't silently change the other just because they happened
+        to share a variable.
+     2. --space-md and --space-lg are fluid (clamp()-based, tied to viewport
+        width). A card's corner radius should NOT change as the window
+        resizes — that's a real bug the old shared-token setup had. */
+  --radius-none: 0;
+  --radius-xs:   0.125rem;  /* 2px  — subtle, tags/badges/inputs */
+  --radius-sm:   0.25rem;   /* 4px  — buttons, small cards */
+  --radius-md:   0.5rem;    /* 8px  — cards, modals */
+  --radius-lg:   1rem;      /* 16px — large cards, bottom sheets */
+  --radius-xl:   1.5rem;    /* 24px — pills, prominent surfaces */
+  --radius-full: 9999px;    /* circles, fully rounded pills */
+
   /* === Z-INDEX TOKENS === */
-  /* Named for purpose, not magnitude — never guess if 30 beats 20. */
-  /* Each layer leaves headroom for one-off insertions without renumbering everything. */
   --z-behind:   -1;
   --z-base:      0;
   --z-raised:   10;
@@ -67,12 +77,42 @@
   --z-tooltip:  80;
   --z-max:    9999;
 
+  /* === TRANSITION TOKENS === */
+  --duration-instant: 0ms;
+  --duration-fast:    150ms;
+  --duration-base:    200ms;
+  --duration-slow:    350ms;
+
+  --ease-linear:  linear;
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* === DARK MODE === */
-/* Override tokens only — utilities update automatically */
+/*
+  Three layers, in this order, on purpose:
+
+  1. The :root block above — light values, the default with no signal either way.
+
+  2. OS preference, scoped with :not([data-theme="light"]) so a user who has
+     explicitly chosen light still gets light even if their OS is set to dark.
+     Specificity: :root:not(...) = (0,2,0) — beats the plain :root base.
+
+  3. Manual overrides via :root[data-theme="dark"] / :root[data-theme="light"].
+     Specificity: (0,2,0) — ties with rule 2, but declared after it, so source
+     order breaks the tie in its favor. This means an explicit choice always
+     wins over the OS signal, regardless of which the OS happens to report.
+
+  Toggle with JS: document.documentElement.dataset.theme = 'dark' | 'light'
+  Reset to OS preference: delete document.documentElement.dataset.theme
+  A third value like data-theme="system" also works with no extra CSS needed —
+  it satisfies :not([data-theme="light"]) so the OS rule still applies.
+*/
+
+/* 2. OS preference — applies unless the user has explicitly chosen light */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-text:           #f0f0f0;
     --color-text-subtle:    #9b9b9b;
     --color-text-strong:    #ffffff;
@@ -81,4 +121,25 @@
     --color-surface-sunken: #242424;
     --color-border:         #2e2e2e;
   }
+}
+
+/* 3. Manual overrides — beat the OS rule via source order, not specificity alone */
+:root[data-theme="light"] {
+  --color-text:           var(--primitive-gray-800);
+  --color-text-subtle:    var(--primitive-gray-500);
+  --color-text-strong:    var(--primitive-gray-900);
+  --color-surface:        var(--primitive-gray-0);
+  --color-surface-raised: var(--primitive-gray-50);
+  --color-surface-sunken: var(--primitive-gray-100);
+  --color-border:         var(--primitive-gray-200);
+}
+
+:root[data-theme="dark"] {
+  --color-text:           #f0f0f0;
+  --color-text-subtle:    #9b9b9b;
+  --color-text-strong:    #ffffff;
+  --color-surface:        #0f0f0f;
+  --color-surface-raised: #1a1a1a;
+  --color-surface-sunken: #242424;
+  --color-border:         #2e2e2e;
 }

@@ -34,22 +34,31 @@
 .border-none   { border-style: none; }
 
 /* --- Border radius --- */
-/* Uses the shared space scale for consistency */
-.rounded-none { border-radius: 0; }
-.rounded-xs   { border-radius: var(--space-xs); }   /* 4px  — subtle */
-.rounded-sm   { border-radius: var(--space-sm); }   /* 8px  — cards  */
-.rounded-md   { border-radius: var(--space-md); }   /* 16px — modals */
-.rounded-lg   { border-radius: var(--space-lg); }   /* 24px — pills  */
-.rounded-full { border-radius: 9999px; }             /* circles       */
+/* Uses --radius-* — its own token family, not --space-*. See tokens.css */
+/* for why: spacing and radius are different concerns, and --space-md/lg */
+/* are fluid, which a corner radius should never be. */
+.rounded-none { border-radius: var(--radius-none); }
+.rounded-xs   { border-radius: var(--radius-xs); }
+.rounded-sm   { border-radius: var(--radius-sm); }
+.rounded-md   { border-radius: var(--radius-md); }
+.rounded-lg   { border-radius: var(--radius-lg); }
+.rounded-xl   { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
 
-/* Single-side radius (logical) */
-.rounded-t-none { border-start-start-radius: 0; border-start-end-radius: 0; }
-.rounded-t-sm   { border-start-start-radius: var(--space-sm); border-start-end-radius: var(--space-sm); }
-.rounded-t-md   { border-start-start-radius: var(--space-md); border-start-end-radius: var(--space-md); }
+/* Single-side radius (logical) — full parity with the base scale */
+.rounded-t-none { border-start-start-radius: var(--radius-none); border-start-end-radius: var(--radius-none); }
+.rounded-t-xs   { border-start-start-radius: var(--radius-xs);   border-start-end-radius: var(--radius-xs); }
+.rounded-t-sm   { border-start-start-radius: var(--radius-sm);   border-start-end-radius: var(--radius-sm); }
+.rounded-t-md   { border-start-start-radius: var(--radius-md);   border-start-end-radius: var(--radius-md); }
+.rounded-t-lg   { border-start-start-radius: var(--radius-lg);   border-start-end-radius: var(--radius-lg); }
+.rounded-t-xl   { border-start-start-radius: var(--radius-xl);   border-start-end-radius: var(--radius-xl); }
 
-.rounded-b-none { border-end-start-radius: 0; border-end-end-radius: 0; }
-.rounded-b-sm   { border-end-start-radius: var(--space-sm); border-end-end-radius: var(--space-sm); }
-.rounded-b-md   { border-end-start-radius: var(--space-md); border-end-end-radius: var(--space-md); }
+.rounded-b-none { border-end-start-radius: var(--radius-none); border-end-end-radius: var(--radius-none); }
+.rounded-b-xs   { border-end-start-radius: var(--radius-xs);   border-end-end-radius: var(--radius-xs); }
+.rounded-b-sm   { border-end-start-radius: var(--radius-sm);   border-end-end-radius: var(--radius-sm); }
+.rounded-b-md   { border-end-start-radius: var(--radius-md);   border-end-end-radius: var(--radius-md); }
+.rounded-b-lg   { border-end-start-radius: var(--radius-lg);   border-end-end-radius: var(--radius-lg); }
+.rounded-b-xl   { border-end-start-radius: var(--radius-xl);   border-end-end-radius: var(--radius-xl); }
 
 /* --- Outline --- */
 /* Focus rings, non-layout-affecting borders */

@@ -1,0 +1,57 @@
+/* transition.css — [property]-[value] */
+/* Pairs with state.css: state utilities change a value, these utilities
+   govern how that change animates. A .hover\:bg-accent without a
+   .transition-colors on the same element will just snap — that's
+   expected, transitions are opt-in, not bundled into the state utility. */
+
+/* --- Transition property groups --- */
+/* Deliberately exclude layout-affecting properties (width, height, margin) */
+/* from the default set — animating those causes jank. Reach for           */
+/* .transition-all only when you specifically need it and accept the cost.  */
+.transition-none {
+  transition-property: none;
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color,
+                        fill, stroke, opacity, box-shadow, outline-color;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+}
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+}
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+}
+.transition-transform {
+  transition-property: transform;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+}
+.transition-all {
+  transition-property: all;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out);
+}
+
+/* --- Duration overrides --- */
+/* Apply alongside a .transition-* class: <button class="transition-colors duration-fast"> */
+.duration-instant { transition-duration: var(--duration-instant); }
+.duration-fast    { transition-duration: var(--duration-fast); }
+.duration-base    { transition-duration: var(--duration-base); }
+.duration-slow     { transition-duration: var(--duration-slow); }
+
+/* --- Easing overrides --- */
+.ease-linear  { transition-timing-function: var(--ease-linear); }
+.ease-in      { transition-timing-function: var(--ease-in); }
+.ease-out     { transition-timing-function: var(--ease-out); }
+.ease-in-out  { transition-timing-function: var(--ease-in-out); }

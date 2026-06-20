@@ -2,10 +2,12 @@
 @import "./type.css";
 @import "./colors.css";
 @import "./layout.css";
+@import "./accessibility.css";
 @import "./sizing.css";
 @import "./border.css";
 @import "./flex.css";
 @import "./grid.css";
 @import "./z-index.css";
+@import "./transition.css";
 @import "./state.css";
 @import "./responsive.css";

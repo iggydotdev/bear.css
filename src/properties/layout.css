@@ -20,11 +20,9 @@
 .sticky   { position: sticky; }
 
 /* --- Inset (logical) --- */
-/* Full inset */
 .inset-none { inset: 0; }
 .inset-auto { inset: auto; }
 
-/* Block (vertical) */
 .inset-block-none  { inset-block: 0; }
 .inset-block-auto  { inset-block: auto; }
 .inset-block-start-none { inset-block-start: 0; }
@@ -32,7 +30,6 @@
 .inset-block-end-none   { inset-block-end: 0; }
 .inset-block-end-auto   { inset-block-end: auto; }
 
-/* Inline (horizontal) */
 .inset-inline-none  { inset-inline: 0; }
 .inset-inline-auto  { inset-inline: auto; }
 .inset-inline-start-none { inset-inline-start: 0; }
@@ -80,3 +77,20 @@
 /* --- Pointer events --- */
 .pointer-events-none { pointer-events: none; }
 .pointer-events-auto { pointer-events: auto; }
+
+/* --- Cursor --- */
+/* Practical subset, not the full CSS cursor enum. Add more only when a real */
+/* use case needs it — most UIs only ever touch the ones below.              */
+.cursor-auto         { cursor: auto; }
+.cursor-default      { cursor: default; }
+.cursor-pointer      { cursor: pointer; }
+.cursor-text         { cursor: text; }
+.cursor-move         { cursor: move; }
+.cursor-grab         { cursor: grab; }
+.cursor-grabbing     { cursor: grabbing; }
+.cursor-not-allowed  { cursor: not-allowed; }
+.cursor-wait         { cursor: wait; }
+.cursor-help         { cursor: help; }
+.cursor-zoom-in      { cursor: zoom-in; }
+.cursor-zoom-out     { cursor: zoom-out; }
+.cursor-none         { cursor: none; }

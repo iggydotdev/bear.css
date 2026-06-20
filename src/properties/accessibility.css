@@ -1,0 +1,41 @@
+/* accessibility.css — [property]-[value] */
+/* Visually hidden, but still present for screen readers and other assistive tech. */
+/* Uses clip-path over the legacy clip property — clip is deprecated, clip-path */
+/* has full support and achieves the same "1px box, no visible content" result. */
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Same hiding as .sr-only, but reveals on focus — for skip-navigation links */
+/* and similar elements that should stay invisible until a keyboard user tabs */
+/* to them. Self-contained: use this alone, don't pair it with .sr-only.       */
+.sr-only-focusable {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-visible {
+  position: static;
+  inline-size: auto;
+  block-size: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
