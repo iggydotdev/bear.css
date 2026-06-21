@@ -1,16 +1,42 @@
 {
   "name": "bear.css",
   "version": "0.1.0",
-  "description": "Companion CSS utility system built with a five-level atomic hierarchy",
+  "description": "Zero-dependency, zero-build atomic CSS utility framework built on a five-level token hierarchy. Native cascade layers, logical properties, fluid type/space scales, container queries.",
   "main": "dist/bear.css",
+  "style": "dist/bear.css",
+  "files": [
+    "dist",
+    "src",
+    "bear.config.js",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
-    "build": "node src/build.js"
+    "build": "node src/build.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "css",
-    "utility",
-    "atomic"
+    "utility-css",
+    "atomic-css",
+    "css-framework",
+    "design-tokens",
+    "cascade-layers",
+    "logical-properties",
+    "container-queries",
+    "zero-dependency"
   ],
-  "author": "",
-  "license": "MIT"
+  "author": "Iggy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iggydotdev/bear.css.git"
+  },
+  "homepage": "https://github.com/iggydotdev/bear.css#readme",
+  "bugs": {
+    "url": "https://github.com/iggydotdev/bear.css/issues"
+  },
+  "engines": {
+    "node": ">=14"
+  }
 }
