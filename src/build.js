@@ -31,24 +31,74 @@ function compileConfig() {
   console.log('✓ Generated primitives/scale.css')
 
   // Generate type.css
+  // `type-base` sets the base font size in px (e.g. 16). We express every
+  // step as a rem value relative to a 16px root, so the *ratio* between
+  // steps stays correct however the browser's actual root font-size
+  // resolves — reset.css keeps `font-size: 100%` on purpose, to respect
+  // the user's own browser setting. `type-base` shifts where "1× " sits
+  // on that scale, it doesn't hardcode an absolute pixel size.
   const typePath = path.join(__dirname, 'primitives/type.css')
   const ratio = config['type-scale-ratio']
+  const base = config['type-base']
+  if (!base) {
+    throw new Error('bear.config.js is missing required "type-base" value')
+  }
+  const baseRem = base / 16
   const formatRem = (val) => Number(val.toFixed(3)) + 'rem'
 
   let typeCss = `/* type.css — raw type scale, never used directly in HTML */\n`
   typeCss += `/* Automatically generated from config in bear.config.js — DO NOT EDIT DIRECTLY */\n\n`
   typeCss += `:root {\n`
-  typeCss += `  --primitive-text-xs:   ${formatRem(1 / (ratio * ratio))};\n`
-  typeCss += `  --primitive-text-sm:   ${formatRem(1 / ratio)};\n`
-  typeCss += `  --primitive-text-base: 1rem;\n`
-  typeCss += `  --primitive-text-md:   ${formatRem(ratio)};\n`
-  typeCss += `  --primitive-text-lg:   ${formatRem(ratio * ratio)};\n`
-  typeCss += `  --primitive-text-xl:   ${formatRem(ratio * ratio * ratio)};\n`
-  typeCss += `  --primitive-text-2xl:  ${formatRem(ratio * ratio * ratio * ratio)};\n`
-  typeCss += `  --primitive-text-3xl:  ${formatRem(ratio * ratio * ratio * ratio * ratio)};\n`
+  typeCss += `  --primitive-text-xs:   ${formatRem(baseRem / (ratio * ratio))};\n`
+  typeCss += `  --primitive-text-sm:   ${formatRem(baseRem / ratio)};\n`
+  typeCss += `  --primitive-text-base: ${formatRem(baseRem)};\n`
+  typeCss += `  --primitive-text-md:   ${formatRem(baseRem * ratio)};\n`
+  typeCss += `  --primitive-text-lg:   ${formatRem(baseRem * ratio * ratio)};\n`
+  typeCss += `  --primitive-text-xl:   ${formatRem(baseRem * ratio * ratio * ratio)};\n`
+  typeCss += `  --primitive-text-2xl:  ${formatRem(baseRem * ratio * ratio * ratio * ratio)};\n`
+  typeCss += `  --primitive-text-3xl:  ${formatRem(baseRem * ratio * ratio * ratio * ratio * ratio)};\n`
   typeCss += `}\n`
   fs.writeFileSync(typePath, typeCss)
   console.log('✓ Generated primitives/type.css')
+
+  // Generate grid-columns.css
+  // `columns` drives every column-count-dependent grid utility: template
+  // columns, column span, column start, column end. Change the config,
+  // the full run regenerates — nothing hand-maintained, nothing partial.
+  const gridColumnsPath = path.join(__dirname, 'properties/grid-columns.css')
+  const columns = config.columns
+  if (!columns) {
+    throw new Error('bear.config.js is missing required "columns" value')
+  }
+
+  let gridCss = `/* grid-columns.css — column-count-dependent grid utilities */\n`
+  gridCss += `/* Automatically generated from config in bear.config.js — DO NOT EDIT DIRECTLY */\n\n`
+
+  gridCss += `/* --- Template columns --- */\n`
+  for (let i = 1; i <= columns; i++) {
+    gridCss += `.grid-cols-${i} { grid-template-columns: repeat(${i}, minmax(0, 1fr)); }\n`
+  }
+  gridCss += `\n/* --- Column span --- */\n`
+  for (let i = 1; i <= columns; i++) {
+    gridCss += `.col-span-${i} { grid-column: span ${i} / span ${i}; }\n`
+  }
+  gridCss += `.col-span-full { grid-column: 1 / -1; }\n`
+
+  gridCss += `\n/* --- Column start --- */\n`
+  for (let i = 1; i <= columns; i++) {
+    gridCss += `.col-start-${i} { grid-column-start: ${i}; }\n`
+  }
+  gridCss += `.col-start-auto { grid-column-start: auto; }\n`
+
+  gridCss += `\n/* --- Column end --- */\n`
+  for (let i = 1; i <= columns + 1; i++) {
+    gridCss += `.col-end-${i} { grid-column-end: ${i}; }\n`
+  }
+  gridCss += `.col-end-auto { grid-column-end: auto; }\n`
+  gridCss += `.col-end-last { grid-column-end: -1; }\n`
+
+  fs.writeFileSync(gridColumnsPath, gridCss)
+  console.log('✓ Generated properties/grid-columns.css')
 
   // Generate responsive.css
   const responsivePath = path.join(__dirname, 'properties/responsive.css')
@@ -84,9 +134,21 @@ function compileConfig() {
     u += `  .gap-lg\\@${suffix} { gap: var(--space-lg); }\n`
     u += `  .gap-xl\\@${suffix} { gap: var(--space-xl); }\n\n`
 
-    u += `  /* --- Grid columns --- */\n`
-    for (const cols of [1, 2, 3, 4, 6, 12]) {
-      u += `  .grid-cols-${cols}\\@${suffix} { grid-template-columns: repeat(${cols}, minmax(0, 1fr)); }\n`
+    u += `  /* --- Grid columns (full run, driven by config.columns) --- */\n`
+    for (let i = 1; i <= columns; i++) {
+      u += `  .grid-cols-${i}\\@${suffix} { grid-template-columns: repeat(${i}, minmax(0, 1fr)); }\n`
+    }
+    u += `\n`
+
+    u += `  /* --- Column span (full run, driven by config.columns) --- */\n`
+    for (let i = 1; i <= columns; i++) {
+      u += `  .col-span-${i}\\@${suffix} { grid-column: span ${i} / span ${i}; }\n`
+    }
+    u += `  .col-span-full\\@${suffix} { grid-column: 1 / -1; }\n\n`
+
+    u += `  /* --- Column start (full run, driven by config.columns) --- */\n`
+    for (let i = 1; i <= columns; i++) {
+      u += `  .col-start-${i}\\@${suffix} { grid-column-start: ${i}; }\n`
     }
     u += `\n`
 

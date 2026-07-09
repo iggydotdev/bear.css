@@ -4,5 +4,5 @@ module.exports = {
   "type-scale-ratio": 1.25,
   "type-base": 16,
   "columns": 12,
-  "breakpoints": { "s": 480, "m": 768, "l": 1024, "xl": 1280 }
+  "breakpoints": { "s": 480, "m": 768, "l": 1024, "xl": 1280, 'xxl': 1440 }
 };
